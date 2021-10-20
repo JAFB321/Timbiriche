@@ -3,7 +3,10 @@ package UI.componentes;
 
 import java.awt.Graphics;
 
-
+/**
+ * Clase que representa un tablero para el juego.
+ * @author Daniel Parra, Jesus Ramses, Jose Felix
+ */
 public class TableroPanel extends javax.swing.JPanel {
 
     public TableroPanel() {
@@ -11,6 +14,10 @@ public class TableroPanel extends javax.swing.JPanel {
         
     }
 
+    /**
+     * Metodo que pinta el tablero del juego en la pantalla.
+     * @param g 
+     */
     @Override
     public void paint(Graphics g) {
         super.paint(g); 

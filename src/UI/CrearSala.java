@@ -1,6 +1,9 @@
 package UI;
 
-
+/**
+ * Clase que reprsenta la interfaz para crear una sala.
+ * @author Daniel Parra, Jesus Ramses, Jose Felix
+ */
 public class CrearSala extends javax.swing.JFrame {
 
     public CrearSala() {
@@ -178,6 +181,10 @@ public class CrearSala extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButton6ActionPerformed
 
+    /**
+     * Nos lleva a la interfaz de sala de espera.
+     * @param evt 
+     */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         SalaEspera form = new SalaEspera();
         this.setVisible(false);

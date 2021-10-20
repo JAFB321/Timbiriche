@@ -3,7 +3,10 @@ package UI;
 import UI.componentes.TableroPanel;
 import java.awt.Graphics;
 
-
+/**
+ * Esta clase representa el panel
+ * @author Daniel Parra, Jesus Ramses, Jose Felix
+ */
 public class Juego extends javax.swing.JFrame {
 
     public Juego() {
@@ -151,6 +154,10 @@ public class Juego extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * El boton de abandonar nos regresa al menu principal.
+     * @param evt 
+     */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         MenuPrincipal form = new MenuPrincipal();
         this.setVisible(false);

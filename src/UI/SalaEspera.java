@@ -1,6 +1,9 @@
 package UI;
 
-
+/**
+ * Clase que representa la interfaz de la sala de espera.
+ * @author Daniel Parra, Jesus Ramses, Jose Felix
+ */
 public class SalaEspera extends javax.swing.JFrame {
 
     public SalaEspera() {
@@ -147,6 +150,11 @@ public class SalaEspera extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Boton que nos manda directamente a la interfaz para empezar a jugar.
+     * (Para el creador de la sala)
+     * @param evt 
+     */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Juego form = new Juego();
         this.setVisible(false);

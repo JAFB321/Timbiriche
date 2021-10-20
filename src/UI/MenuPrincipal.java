@@ -1,6 +1,9 @@
 package UI;
 
-
+/**
+ * Clase que representa la interfaz del menu principal.
+ * @author Daniel Parra, Jesus Ramses, Jose Felix
+ */
 public class MenuPrincipal extends javax.swing.JFrame {
 
     public MenuPrincipal() {
@@ -82,12 +85,20 @@ public class MenuPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Nos lleva a la interfaz de BuscarSala.
+     * @param evt 
+     */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         BuscarSala form = new BuscarSala();
         this.setVisible(false);
         form.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    /**
+     * Nos lleva a la interfaz de CrearSala
+     * @param evt 
+     */
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         CrearSala form = new CrearSala();
         this.setVisible(false);

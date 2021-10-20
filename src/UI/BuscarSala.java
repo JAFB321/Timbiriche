@@ -1,6 +1,9 @@
 package UI;
 
-
+/**
+ * Clase que representa la interfaz grafica para buscar una sala.
+ * @author Daniel Parra, Jesus Ramses, Jose Felix
+ */
 public class BuscarSala extends javax.swing.JFrame {
 
     public BuscarSala() {
@@ -89,6 +92,10 @@ public class BuscarSala extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Nos regresa a la pantalla anterior. (Menu Principal)
+     * @param evt 
+     */
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         SalaEspera form = new SalaEspera();
         this.setVisible(false);

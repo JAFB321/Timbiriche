@@ -1,6 +1,9 @@
 package UI;
 
-
+/**
+ * Clase que representa la pantalla de final del juego.
+ * @author Daniel Parra, Jesus Ramses, Jose Felix
+ */
 public class FinJuego extends javax.swing.JFrame {
 
     public FinJuego() {
@@ -136,6 +139,10 @@ public class FinJuego extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * El boton de salir nos regresa al menu principal.
+     * @param evt 
+     */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         MenuPrincipal form = new MenuPrincipal();
         this.setVisible(false);
