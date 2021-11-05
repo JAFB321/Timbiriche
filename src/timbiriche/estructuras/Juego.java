@@ -1,4 +1,4 @@
-package Modelo.estructuras;
+package Timbiriche.estructuras;
 
 import java.util.ArrayList;
 

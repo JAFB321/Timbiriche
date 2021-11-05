@@ -1,4 +1,4 @@
-package timbiriche;
+package Main;
 
 import UI.MenuPrincipal;
 

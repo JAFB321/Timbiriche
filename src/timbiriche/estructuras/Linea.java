@@ -1,4 +1,4 @@
-package Modelo.estructuras;
+package Timbiriche.estructuras;
 
 public class Linea {
     private Punto puntoA;
