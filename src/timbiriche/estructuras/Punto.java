@@ -1,6 +1,8 @@
 package Timbiriche.estructuras;
 
-public class Punto {
+import java.io.Serializable;
+
+public class Punto implements Serializable{
     private int x;
     private int y;
 

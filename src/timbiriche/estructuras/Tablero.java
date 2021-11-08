@@ -1,8 +1,9 @@
 package Timbiriche.estructuras;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Tablero {
+public class Tablero implements Serializable{
     
     private int alto = 10;
     private int ancho = 10;

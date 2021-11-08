@@ -1,7 +1,9 @@
 package Timbiriche.estructuras;
 
+import java.io.Serializable;
 
-public class JugadorHost extends Jugador{
+
+public class JugadorHost extends Jugador implements Serializable{
     
     public JugadorHost() {
         super();

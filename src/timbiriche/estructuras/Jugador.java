@@ -1,7 +1,9 @@
 package Timbiriche.estructuras;
 
+import java.io.Serializable;
 
-public class Jugador {
+
+public class Jugador implements Serializable{
     private String ID = ""; 
     private String userName = ""; 
     private String color = ""; 

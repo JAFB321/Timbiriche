@@ -1,6 +1,8 @@
 package Timbiriche.estructuras;
 
-public class Linea {
+import java.io.Serializable;
+
+public class Linea implements Serializable{
     private Punto puntoA;
     private Punto puntoB;
     private Jugador jugador;

@@ -1,8 +1,9 @@
 package Timbiriche.estructuras;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Juego {
+public class Juego implements Serializable{
 
     private JugadorHost host;
     private ArrayList<Jugador> jugadores = new ArrayList<Jugador>();
