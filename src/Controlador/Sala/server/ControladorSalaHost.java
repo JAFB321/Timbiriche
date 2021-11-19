@@ -1,5 +1,6 @@
 package Controlador.Sala.server;
 
+import Controlador.Conexiones.cliente.AccionCliente;
 import Controlador.Conexiones.server.Cliente;
 import Controlador.Conexiones.server.Server;
 import Controlador.Sala.Sala;
@@ -29,20 +30,17 @@ public class ControladorSalaHost implements Observer {
 
     // ------------ Servidor ------------
     Server server;
+    HostPeticionesHandler requestHandler;
 
     @Override
-    public void update(Observable obs, Object msg) {
-        if(obs instanceof Server && msg instanceof Cliente){
-            Cliente cliente = (Cliente)msg;
+    public void update(Observable sender, Object payload) {
+        if (sender instanceof Server && payload instanceof Cliente) {
+            Cliente cliente = (Cliente) payload;
             cliente.addObserver(this);
         }
         
-        if(obs instanceof Cliente && msg instanceof SolicitarUnirse){
-            SolicitarUnirse accion = (SolicitarUnirse)msg;
-            Cliente cliente = (Cliente)obs;
-            
-            accion.jugador.setID(cliente.ID);
-            añadirJugadorSala(accion.jugador);
+        if(sender instanceof Cliente && payload instanceof AccionCliente) {
+            requestHandler.handlePeticion((Cliente)sender, (AccionCliente)payload);
         }
     }
 
@@ -53,18 +51,14 @@ public class ControladorSalaHost implements Observer {
         try {
             server.Init();
             sala = new Sala(host);
+            requestHandler = new HostPeticionesHandler(server, sala);
         } catch (Exception e) {
         }
     }
     
-    private void añadirJugadorSala(Jugador jugador){
-        sala.addJugador(jugador);
-        
-        AccionServer res = new enviarIDJugador(jugador.getID());
-        server.sendToClients(res, jugador.getID());
-        
-        AccionServer res2 = new notificarJugadorNuevo(sala.getJugadores(), sala.getHost(), jugador);
-        server.sendToClients(res2);
-    }
+    
+    
+    // ------------ Acciones ------------
+
 
 }
