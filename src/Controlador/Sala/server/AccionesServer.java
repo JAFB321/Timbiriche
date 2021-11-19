@@ -1,13 +1,12 @@
 package Controlador.Sala.server;
 
+import Controlador.Conexiones.server.AccionServer;
 import Timbiriche.estructuras.Jugador;
 import Timbiriche.estructuras.JugadorHost;
-import java.io.Serializable;
 
 
 public class AccionesServer {
-    public static class AccionServer implements Serializable{}
-    
+   
     public static class notificarJugadorNuevo extends AccionServer{
         public Jugador[] jugadoresSala;
         public JugadorHost host;

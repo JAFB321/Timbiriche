@@ -1,12 +1,10 @@
 package Controlador.Sala.cliente;
 
+import Controlador.Conexiones.cliente.AccionCliente;
 import Timbiriche.estructuras.Jugador;
-import java.io.Serializable;
 
 
-public class AccionesCliente {
-    public static class AccionCliente implements Serializable{}
-    
+public class AccionesCliente {  
     public static class SolicitarUnirse extends AccionCliente{
         public Jugador jugador;
         
