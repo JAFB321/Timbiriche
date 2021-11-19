@@ -47,8 +47,18 @@ public class Server extends SocketsObservable implements Runnable{
     public void AddClient(Socket socket){
         Cliente cliente = new Cliente(socket, "Cliente"+getNexID());
         clientes.add(cliente);
-
         notifyObservers(cliente);
+        
+//        try {
+//            System.out.println("Waiting");
+//            this.wait(1000);
+//            
+//        } catch (InterruptedException e) {
+//            System.out.println(e);
+//            //notifyObservers(cliente);
+//        }
+
+
     }
     
     public Cliente[] getClientes(){
