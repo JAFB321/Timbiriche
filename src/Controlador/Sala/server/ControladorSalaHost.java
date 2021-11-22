@@ -44,11 +44,16 @@ public class ControladorSalaHost extends ControladorSync implements Observer {
 
     // ------------ Sala Host ------------
     Sala sala = null;
+    
+    public Sala getSala(){
+        return sala;
+    }
 
-    public boolean CrearSala(JugadorHost host) {
+    public boolean CrearSala(String nombre, int nJugadores, int tamañoTablero, JugadorHost host) {
         try {
             server.Init();
-            sala = new Sala(host);
+            host.setID("host");
+            sala = new Sala(nombre, nJugadores, tamañoTablero, host);
             requestHandler = new HostPeticionesHandler(server, sala);
             
             return true;
