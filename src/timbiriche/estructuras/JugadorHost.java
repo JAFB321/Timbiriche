@@ -12,5 +12,8 @@ public class JugadorHost extends Jugador implements Serializable{
     public JugadorHost(String ID, String userName, String color, String avatar) {
         super(ID, userName, color, avatar);
     }
-
+    
+    public JugadorHost(Jugador jugador){
+        super(jugador.getID(), jugador.getUserName(), jugador.getColor(), jugador.getAvatar());
+    }
 }
