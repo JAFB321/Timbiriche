@@ -1,21 +1,32 @@
 package Controlador.Sala.server;
 
 import Controlador.Conexiones.server.AccionServer;
+import Controlador.Sala.Sala;
 import Timbiriche.estructuras.Jugador;
 import Timbiriche.estructuras.JugadorHost;
 
 
 public class AccionesServer {
    
-    public static class notificarJugadorNuevo extends AccionServer{
-        public Jugador[] jugadoresSala;
-        public JugadorHost host;
+    public static class notificar_JugadorNuevo extends AccionServer{
+        public Sala sala;
         public Jugador nuevo;
         
-        public notificarJugadorNuevo(Jugador[] nuevaSala, JugadorHost host, Jugador nuevo){
-            this.jugadoresSala = nuevaSala;
+        public notificar_JugadorNuevo(Sala sala, Jugador nuevo){
+            this.sala = new Sala();
+            this.sala.actualizarSala(sala);
             this.nuevo = nuevo;
-            this.host = host;
+        }
+    }
+    
+    public static class notificar_JugadorAbandono extends AccionServer{
+        public Sala sala;
+        public Jugador abandono;
+
+        public notificar_JugadorAbandono(Sala sala, Jugador abandono) {
+            this.sala = new Sala();
+            this.sala.actualizarSala(sala);
+            this.abandono = abandono;
         }
     }
 
@@ -23,13 +34,11 @@ public class AccionesServer {
         public String jugadorID;
         public String solicitudID;
         
-        public Jugador[] jugadores;
-        public JugadorHost host;
+        public Sala sala;
         
-        public AceptarUnirse(String ID, Jugador[] jugadores, JugadorHost host, String solicitudID){
+        public AceptarUnirse(String ID, Sala sala, String solicitudID){
             this.jugadorID = ID;
-            this.jugadores = jugadores;
-            this.host = host;
+            this.sala = sala;
             this.solicitudID = solicitudID;
             this.isSync = true;
         }
