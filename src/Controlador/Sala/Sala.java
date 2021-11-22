@@ -2,17 +2,30 @@ package Controlador.Sala;
 
 import Timbiriche.estructuras.Jugador;
 import Timbiriche.estructuras.JugadorHost;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
-public class Sala {
+public class Sala implements Serializable{
+    String nombre;
+    int nJugadores;
+    int tamañoTablero;
+    
     JugadorHost host;
     ArrayList<Jugador> jugadores = new ArrayList<>();
     
     public Sala(JugadorHost host){
-        this.host = host;
-        jugadores.add(host);
+        setHost(host);
     }
+
+    public Sala(String nombre, int nJugadores, int tamañoTablero, JugadorHost host) {
+        this.nombre = nombre;
+        this.nJugadores = nJugadores;
+        this.tamañoTablero = tamañoTablero;
+        setHost(host);
+    }
+    
+    
     
     public Sala(){}
     
@@ -21,11 +34,19 @@ public class Sala {
     }
 
     public void setHost(JugadorHost host) {
+        if(this.host != null){
+            removeJugador(host.getID());
+        }
+        
+        //jugadores.add(host);
         this.host = host;
     }
     
     public Jugador[] getJugadores(){
-        return jugadores.toArray(new Jugador[0]);
+        ArrayList<Jugador> newJugadores = (ArrayList<Jugador>)jugadores.clone();
+        newJugadores.add(host);
+        
+        return newJugadores.toArray(new Jugador[0]);
     }
     
     public Jugador getJugador(String ID){
@@ -47,10 +68,14 @@ public class Sala {
         for (int i = 0; i < jugadores.size(); i++) {
             
             Jugador jugador = jugadores.get(i);
-            if(jugador.getID().equals(ID) && jugador != host){
+            if(jugador.getID().equals(ID)){
                 jugadores.remove(i);
                 return;
             }
         }
+    }
+    
+    public void removeJugadores(){
+        jugadores.clear();
     }
 }
