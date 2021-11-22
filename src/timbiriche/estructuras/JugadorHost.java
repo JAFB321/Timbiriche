@@ -9,7 +9,7 @@ public class JugadorHost extends Jugador implements Serializable{
         super();
     }
 
-    public JugadorHost(String ID, String userName, String color, String avatar) {
+    public JugadorHost(String ID, String userName, String color, int avatar) {
         super(ID, userName, color, avatar);
     }
     

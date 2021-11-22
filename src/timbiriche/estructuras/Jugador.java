@@ -7,9 +7,9 @@ public class Jugador implements Serializable{
     private String ID = ""; 
     private String userName = ""; 
     private String color = ""; 
-    private String avatar = ""; 
+    private int avatar = 0; 
 
-    public Jugador(String ID, String userName, String color, String avatar) {
+    public Jugador(String ID, String userName, String color, int avatar) {
         this.ID = ID;
         this.userName = userName;
         this.color = color;
@@ -43,11 +43,11 @@ public class Jugador implements Serializable{
         this.color = color;
     }
 
-    public void setAvatar(String avatar) {
+    public void setAvatar(int avatar) {
         this.avatar = avatar;
     }
 
-    public String getAvatar() {
+    public int getAvatar() {
         return avatar;
     }
 
