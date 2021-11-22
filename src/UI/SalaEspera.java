@@ -1,22 +1,51 @@
 package UI;
 
+import Controlador.Membresia.ControladorMembresia;
+import Controlador.Sala.cliente.ControladorSala;
+import Timbiriche.estructuras.Jugador;
+import UI.eventos.sala.ISalaListener;
+import javax.swing.DefaultListModel;
+
 /**
  * Clase que representa la interfaz de la sala de espera.
  * @author Daniel Parra, Jesus Ramses, Jose Felix
  */
-public class SalaEspera extends javax.swing.JFrame {
+public class SalaEspera extends javax.swing.JFrame implements ISalaListener{
 
+    ControladorSala sala = ControladorSala.getInstance();
+    ControladorMembresia membresia = ControladorMembresia.getInstance();
+    
+    // Lista jugadores
+    DefaultListModel modeloLista = new DefaultListModel();
+    
     public SalaEspera() {
         initComponents();
         setLocationRelativeTo(null); 
         
+        sala.listenSalaEvents(this);
+        
+        listaSalas.setModel(modeloLista);
         
         grupoBotonesColor.add(radioAzul);
         grupoBotonesColor.add(radioNegro);
         grupoBotonesColor.add(radioRojo);
         grupoBotonesColor.add(radioVerde);
+        
+        listarJugadores();
     }
 
+    public void listarJugadores(){
+        String host = sala.getSala().getHost().getUserName();
+        txtHost.setText(host);
+        txtUsuario.setText(membresia.jugador.getUserName());
+        
+        modeloLista.clear();
+        for (Jugador a : sala.getSala().getJugadores()) {
+            modeloLista.addElement(a.getUserName());
+        }
+
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -24,18 +53,18 @@ public class SalaEspera extends javax.swing.JFrame {
         grupoBotonesColor = new javax.swing.ButtonGroup();
         buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        btnAbandonar = new javax.swing.JButton();
         radioAzul = new javax.swing.JRadioButton();
         radioNegro = new javax.swing.JRadioButton();
         radioVerde = new javax.swing.JRadioButton();
         radioRojo = new javax.swing.JRadioButton();
         jLabel5 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField1 = new javax.swing.JTextField();
+        txtHost = new javax.swing.JTextField();
+        txtUsuario = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        listaSalas = new javax.swing.JList<String>();
+        listaSalas = new javax.swing.JList<>();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -44,14 +73,14 @@ public class SalaEspera extends javax.swing.JFrame {
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        jButton1.setText("Continuar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnAbandonar.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        btnAbandonar.setText("Abandonar");
+        btnAbandonar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnAbandonarActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(271, 373, 160, 59));
+        jPanel1.add(btnAbandonar, new org.netbeans.lib.awtextra.AbsoluteConstraints(271, 373, 160, 59));
 
         radioAzul.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         radioAzul.setForeground(new java.awt.Color(0, 51, 204));
@@ -84,15 +113,13 @@ public class SalaEspera extends javax.swing.JFrame {
         jLabel4.setText("Nombre de Host:");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(45, 135, -1, 16));
 
-        jTextField2.setEditable(false);
-        jTextField2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jTextField2.setText("user");
-        jPanel1.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(45, 169, 170, -1));
+        txtHost.setEditable(false);
+        txtHost.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jPanel1.add(txtHost, new org.netbeans.lib.awtextra.AbsoluteConstraints(45, 169, 170, -1));
 
-        jTextField1.setEditable(false);
-        jTextField1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jTextField1.setText("user");
-        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(45, 90, 170, -1));
+        txtUsuario.setEditable(false);
+        txtUsuario.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jPanel1.add(txtUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(45, 90, 170, -1));
 
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel3.setText("Nombre de usuario:");
@@ -134,11 +161,11 @@ public class SalaEspera extends javax.swing.JFrame {
      * (Para el creador de la sala)
      * @param evt 
      */
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Juego form = new Juego();
+    private void btnAbandonarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbandonarActionPerformed
+        MenuPrincipal form = new MenuPrincipal();
         this.setVisible(false);
         form.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnAbandonarActionPerformed
 
 
     public static void main(String args[]) {
@@ -169,9 +196,9 @@ public class SalaEspera extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAbandonar;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup grupoBotonesColor;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -180,12 +207,24 @@ public class SalaEspera extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JList<String> listaSalas;
     private javax.swing.JRadioButton radioAzul;
     private javax.swing.JRadioButton radioNegro;
     private javax.swing.JRadioButton radioRojo;
     private javax.swing.JRadioButton radioVerde;
+    private javax.swing.JTextField txtHost;
+    private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
+
+
+
+    @Override
+    public void on_JugadorNuevo(Jugador jugador) {
+        listarJugadores();
+    }
+
+    @Override
+    public void on_JugadorAbandono(Jugador jugador) {
+        listarJugadores();
+    }
 }
