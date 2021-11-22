@@ -37,6 +37,7 @@ public class ControladorSala extends ControladorSync implements Observer{
         try {
            conexion = new Conexion(IP, 4008);
            conexion.addObserver(this);
+           requestHandler = new ClientePeticionesHandler(conexion, sala, this);
            conexion.Init();
         } catch (Exception e) {}
     }
@@ -46,6 +47,8 @@ public class ControladorSala extends ControladorSync implements Observer{
         
         if(msg instanceof AceptarUnirse ){
             AceptarUnirse accion = (AceptarUnirse)msg;
+            
+            this.sala = accion.sala;
             
             setClienteID(accion.jugadorID);
             liberarAccion(accion.solicitudID);
