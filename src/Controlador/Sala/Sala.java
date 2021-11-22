@@ -78,4 +78,12 @@ public class Sala implements Serializable{
     public void removeJugadores(){
         jugadores.clear();
     }
+    
+    public void actualizarSala(Sala sala){
+        this.host = sala.host;
+        this.jugadores = (ArrayList<Jugador>) sala.jugadores.clone();
+        this.nJugadores = sala.nJugadores;
+        this.nombre = sala.nombre;
+        this.tamañoTablero = sala.tamañoTablero;
+    }
 }
