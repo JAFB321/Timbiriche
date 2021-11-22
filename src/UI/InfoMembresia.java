@@ -1,6 +1,7 @@
 package UI;
 
 
+import Controlador.Membresia.ControladorMembresia;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 
@@ -10,6 +11,8 @@ import javax.swing.JOptionPane;
  */
 public class InfoMembresia extends javax.swing.JFrame {
 
+    ControladorMembresia membresia = ControladorMembresia.getInstance();
+    
     public InfoMembresia() {
         initComponents();
         setLocationRelativeTo(null); 
@@ -27,7 +30,7 @@ public class InfoMembresia extends javax.swing.JFrame {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
+        txtNombre = new javax.swing.JTextField();
         radio2 = new javax.swing.JRadioButton();
         radio4 = new javax.swing.JRadioButton();
         radio3 = new javax.swing.JRadioButton();
@@ -36,7 +39,7 @@ public class InfoMembresia extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        btnAceptar = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -46,10 +49,9 @@ public class InfoMembresia extends javax.swing.JFrame {
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTextField1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jTextField1.setForeground(new java.awt.Color(0, 0, 0));
-        jTextField1.setText("user");
-        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 99, 180, 40));
+        txtNombre.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        txtNombre.setText("user");
+        jPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 99, 180, 40));
 
         radio2.setOpaque(false);
         jPanel1.add(radio2, new org.netbeans.lib.awtextra.AbsoluteConstraints(205, 281, -1, -1));
@@ -85,27 +87,24 @@ public class InfoMembresia extends javax.swing.JFrame {
         });
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 195, -1, -1));
 
-        jButton2.setText("Aceptar");
-        jButton2.setOpaque(false);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnAceptar.setText("Aceptar");
+        btnAceptar.setOpaque(false);
+        btnAceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnAceptarActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 370, 350, -1));
+        jPanel1.add(btnAceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 370, 350, -1));
 
         jLabel4.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Avatar del usuario:");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 141, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Nombre de usuario:");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 77, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Comic Sans MS", 1, 24)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Membresia");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, 599, -1));
@@ -131,16 +130,23 @@ public class InfoMembresia extends javax.swing.JFrame {
      * Nos regresa al menu principal.
      * @param evt 
      */
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
         
         if (this.avatar() == 0) {
             JOptionPane.showMessageDialog(this, "Selecione un avatar","AVISO",JOptionPane.INFORMATION_MESSAGE);
-        }else{
-        MenuPrincipal form = new MenuPrincipal(this.jTextField1.getText(),this.avatar());
-        this.setVisible(false);
-        form.setVisible(true);
+        }else if(txtNombre.equals("")){
+            JOptionPane.showMessageDialog(this, "Ingrese su nombre de usuario","AVISO",JOptionPane.INFORMATION_MESSAGE);
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+        else{
+            
+            membresia.jugador.setUserName(txtNombre.getText());
+            membresia.jugador.setAvatar(avatar());
+            
+            MenuPrincipal form = new MenuPrincipal();
+            this.setVisible(false);
+            form.setVisible(true);
+        }
+    }//GEN-LAST:event_btnAceptarActionPerformed
 
     private int avatar(){
         if (radio1.isSelected()) {
@@ -195,8 +201,8 @@ public class InfoMembresia extends javax.swing.JFrame {
 
     private int avatar;
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAceptar;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -206,10 +212,10 @@ public class InfoMembresia extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JRadioButton radio1;
     private javax.swing.JRadioButton radio2;
     private javax.swing.JRadioButton radio3;
     private javax.swing.JRadioButton radio4;
+    private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 }
