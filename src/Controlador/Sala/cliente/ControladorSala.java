@@ -6,8 +6,11 @@ import Controlador.Conexiones.server.AccionServer;
 import Controlador.Sala.ControladorSync;
 import Controlador.Sala.Sala;
 import Controlador.Sala.cliente.AccionesCliente.*;
+import Controlador.Sala.eventosUI.SalaEvents;
+import Controlador.Sala.eventosUI.SalaHostEvents;
 import Controlador.Sala.server.AccionesServer.*;
 import Timbiriche.estructuras.Jugador;
+import UI.eventos.sala.ISalaListener;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -37,7 +40,7 @@ public class ControladorSala extends ControladorSync implements Observer{
         try {
            conexion = new Conexion(IP, 4008);
            conexion.addObserver(this);
-           requestHandler = new ClientePeticionesHandler(conexion, sala, this);
+           requestHandler = new ClientePeticionesHandler(conexion, sala, eventosSala, this);
            conexion.Init();
         } catch (Exception e) {}
     }
@@ -48,7 +51,7 @@ public class ControladorSala extends ControladorSync implements Observer{
         if(msg instanceof AceptarUnirse ){
             AceptarUnirse accion = (AceptarUnirse)msg;
             
-            this.sala = accion.sala;
+            this.sala.actualizarSala(accion.sala);
             
             setClienteID(accion.jugadorID);
             liberarAccion(accion.solicitudID);
@@ -66,6 +69,14 @@ public class ControladorSala extends ControladorSync implements Observer{
     
     public String[] getSalasDisponibles(){
         return new String[]{"localhost"};
+    }
+    
+    
+    // ------------ Notificador Eventos UI ------------
+    SalaEvents eventosSala = new SalaEvents();
+    
+    public void listenSalaEvents(ISalaListener listener){
+        eventosSala.listeners.add(listener);
     }
     
     
@@ -93,3 +104,8 @@ public class ControladorSala extends ControladorSync implements Observer{
         }
     }
 }
+
+// Cliente - servidor = sockets
+// Sockets - controladores = observer
+// controladores -> UI = eventos
+// UI -> controladores = depedencia

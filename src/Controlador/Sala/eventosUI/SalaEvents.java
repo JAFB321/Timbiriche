@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class SalaEvents {
     
-    ArrayList<ISalaListener> listeners = new ArrayList<>(); 
+    public ArrayList<ISalaListener> listeners = new ArrayList<>(); 
     
     public void notificar_JugadorNuevo(Jugador nuevo){
         listeners.forEach(listener -> listener.on_JugadorNuevo(nuevo));

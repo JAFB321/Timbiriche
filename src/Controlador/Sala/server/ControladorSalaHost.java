@@ -5,7 +5,11 @@ import Controlador.Conexiones.server.Cliente;
 import Controlador.Conexiones.server.Server;
 import Controlador.Sala.ControladorSync;
 import Controlador.Sala.Sala;
+import Controlador.Sala.eventosUI.SalaEvents;
+import Controlador.Sala.eventosUI.SalaHostEvents;
 import Timbiriche.estructuras.JugadorHost;
+import UI.eventos.sala.ISalaHostListener;
+import UI.eventos.sala.ISalaListener;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -41,7 +45,20 @@ public class ControladorSalaHost extends ControladorSync implements Observer {
             requestHandler.handlePeticion((Cliente)sender, (AccionCliente)payload);
         }
     }
-
+    
+    // ------------ Notificador Eventos UI ------------
+    SalaEvents eventosSala = new SalaEvents();
+    SalaHostEvents eventosSalaHost = new SalaHostEvents();
+    
+    public void listenSalaEvents(ISalaListener listener){
+        eventosSala.listeners.add(listener);
+    }
+    
+    public void listenSalaHostEvents(ISalaHostListener listener){
+        eventosSalaHost.hostListeners.add(listener);
+    }
+    
+    
     // ------------ Sala Host ------------
     Sala sala = null;
     
@@ -54,7 +71,7 @@ public class ControladorSalaHost extends ControladorSync implements Observer {
             server.Init();
             host.setID("host");
             sala = new Sala(nombre, nJugadores, tamañoTablero, host);
-            requestHandler = new HostPeticionesHandler(server, sala);
+            requestHandler = new HostPeticionesHandler(server, sala, eventosSala, eventosSalaHost);
             
             return true;
         } catch (Exception e) {

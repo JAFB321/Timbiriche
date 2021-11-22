@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class SalaHostEvents{
     
-    ArrayList<ISalaHostListener> hostListeners = new ArrayList<>();
+    public ArrayList<ISalaHostListener> hostListeners = new ArrayList<>();
     
     
     
