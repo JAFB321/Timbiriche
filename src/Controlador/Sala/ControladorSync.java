@@ -25,7 +25,7 @@ public class ControladorSync {
                     liberarAccion(accion.accionID(), false);
                     return false;
                 }
-                else cancelarAccion(20000, accion.accionID());
+                else cancelarAccion(1000, accion.accionID());
 
                 System.out.println(accion.accionID());
                 wait();
