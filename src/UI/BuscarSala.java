@@ -1,14 +1,36 @@
 package UI;
 
+import Controlador.Membresia.ControladorMembresia;
+import Controlador.Sala.cliente.ControladorSala;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
+
 /**
  * Clase que representa la interfaz grafica para buscar una sala.
  * @author Daniel Parra, Jesus Ramses, Jose Felix
  */
-public class BuscarSala extends javax.swing.JFrame {
+public class BuscarSala extends javax.swing.JFrame{
 
+    ControladorSala sala = ControladorSala.getInstance();
+    ControladorMembresia membresia = ControladorMembresia.getInstance();
+    
+    // Lista salas
+    DefaultListModel modeloLista = new DefaultListModel();
+    
     public BuscarSala() {
         initComponents();
+        listarSalas();
         setLocationRelativeTo(null); 
+        
+        listaSalas.setModel(modeloLista);
+
+    }
+    
+    private void listarSalas(){
+        modeloLista.clear();
+        for (String a : sala.getSalasDisponibles()) {
+            modeloLista.addElement(a);
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -18,12 +40,12 @@ public class BuscarSala extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
+        btnUnirme = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnRegresar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        listaSalas = new javax.swing.JList<String>();
+        listaSalas = new javax.swing.JList<>();
         jLabel1 = new javax.swing.JLabel();
 
         jLabel3.setText("Nombre de usuario:");
@@ -34,22 +56,27 @@ public class BuscarSala extends javax.swing.JFrame {
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton2.setText("Unirme");
-        jButton2.setOpaque(false);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnUnirme.setText("Unirme");
+        btnUnirme.setOpaque(false);
+        btnUnirme.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnUnirmeActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(238, 317, 107, -1));
+        jPanel1.add(btnUnirme, new org.netbeans.lib.awtextra.AbsoluteConstraints(238, 317, 107, -1));
 
         jLabel5.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel5.setText("Salas disponibles");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(113, 67, -1, -1));
 
-        jButton1.setText("Regresar");
-        jButton1.setOpaque(false);
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(113, 317, 107, -1));
+        btnRegresar.setText("Regresar");
+        btnRegresar.setOpaque(false);
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(113, 317, 107, -1));
 
         jLabel2.setFont(new java.awt.Font("Comic Sans MS", 1, 24)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -57,10 +84,10 @@ public class BuscarSala extends javax.swing.JFrame {
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 21, 480, -1));
 
         listaSalas.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        listaSalas.setModel(new javax.swing.AbstractListModel() {
+        listaSalas.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
+            public String getElementAt(int i) { return strings[i]; }
         });
         jScrollPane1.setViewportView(listaSalas);
 
@@ -87,11 +114,25 @@ public class BuscarSala extends javax.swing.JFrame {
      * Nos regresa a la pantalla anterior. (Menu Principal)
      * @param evt 
      */
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        SalaEspera form = new SalaEspera();
+    private void btnUnirmeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUnirmeActionPerformed
+        
+        boolean conectado = sala.solicitarUnirseSala(membresia.jugador, listaSalas.getSelectedValue());
+        
+        if(conectado){
+            SalaEspera form = new SalaEspera();
+            this.setVisible(false);
+            form.setVisible(true);
+        }else{
+            JOptionPane.showMessageDialog(this, "No has podido unirte a la sala","AVISO",JOptionPane.INFORMATION_MESSAGE);
+        }
+        
+    }//GEN-LAST:event_btnUnirmeActionPerformed
+
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+        MenuPrincipal form = new MenuPrincipal();
         this.setVisible(false);
         form.setVisible(true);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnRegresarActionPerformed
 
 
     public static void main(String args[]) {
@@ -122,8 +163,8 @@ public class BuscarSala extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnRegresar;
+    private javax.swing.JButton btnUnirme;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
