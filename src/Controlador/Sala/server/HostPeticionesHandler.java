@@ -10,7 +10,7 @@ import Controlador.Conexiones.server.AccionServer;
 import Timbiriche.estructuras.Jugador;
 
 public class HostPeticionesHandler {
-
+ 
     Server server;
     Sala sala;
 
@@ -36,8 +36,8 @@ public class HostPeticionesHandler {
     
         sala.addJugador(jugador);
 
-        AccionServer res = new enviarIDJugador(jugador.getID());
-        server.sendToClients(res, jugador.getID());
+        AccionServer res = new AceptarUnirse(jugador.getID(), sala.getJugadores(), sala.getHost(), accion.accionID());
+        server.sendToClients(res, cliente.ID);
 
         AccionServer res2 = new notificarJugadorNuevo(sala.getJugadores(), sala.getHost(), jugador);
         server.sendToClients(res2);

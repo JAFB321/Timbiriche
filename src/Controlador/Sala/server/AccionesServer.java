@@ -18,12 +18,20 @@ public class AccionesServer {
             this.host = host;
         }
     }
-    
-    public static class enviarIDJugador extends AccionServer{
-        public String ID;
+
+    public static class AceptarUnirse extends AccionServer{
+        public String jugadorID;
+        public String solicitudID;
         
-        public enviarIDJugador(String ID){
-            this.ID = ID;
+        public Jugador[] jugadores;
+        public JugadorHost host;
+        
+        public AceptarUnirse(String ID, Jugador[] jugadores, JugadorHost host, String solicitudID){
+            this.jugadorID = ID;
+            this.jugadores = jugadores;
+            this.host = host;
+            this.solicitudID = solicitudID;
+            this.isSync = true;
         }
     }
 }
