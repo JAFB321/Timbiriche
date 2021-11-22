@@ -1,6 +1,8 @@
 package Controlador.Sala.cliente;
 
+import Controlador.Conexiones.cliente.AccionCliente;
 import Controlador.Conexiones.cliente.Conexion;
+import Controlador.Sala.ControladorSync;
 import Controlador.Sala.Sala;
 import Controlador.Sala.cliente.AccionesCliente.*;
 import Controlador.Sala.server.AccionesServer.*;
@@ -8,13 +10,14 @@ import Timbiriche.estructuras.Jugador;
 import java.util.Observable;
 import java.util.Observer;
 
-public class ControladorSala implements Observer{
+public class ControladorSala extends ControladorSync implements Observer{
 
     // ------------ Singleton ------------  
     private static ControladorSala instance = null;
 
     private ControladorSala() {
         conexion = new Conexion("localhost", 4008);
+        conexion.addObserver(this);
     }
 
     public static ControladorSala getInstance() {
@@ -37,8 +40,11 @@ public class ControladorSala implements Observer{
     @Override
     public void update(Observable obs, Object msg) {
         
-        if(msg instanceof enviarIDJugador ){
-            setClienteID(((enviarIDJugador)msg).ID);
+        if(msg instanceof AceptarUnirse ){
+            AceptarUnirse accion = (AceptarUnirse)msg;
+            
+            setClienteID(accion.jugadorID);
+            liberarAccion(accion.solicitudID);
         }
     }
     
@@ -49,19 +55,32 @@ public class ControladorSala implements Observer{
         }
     }
     
+    public String[] getSalasDisponibles(){
+        return new String[]{"localhost"};
+    }
+    
     
     // ------------ Sala Cliente ------------
     Sala sala = new Sala();
     public Jugador jugador;
     
-   
-    public void solicitarUnirseSala(Jugador jugador){
+    public Sala getSala(){
+        return sala;
+    }
+    
+    // Acciones
+    public boolean solicitarUnirseSala(Jugador jugador, String salaIP /*Implementar*/ ){
         initConexion();
         
         this.jugador = jugador;
-        this.jugador.setID(this.ID);
         
         AccionCliente request = new SolicitarUnirse(jugador);
         conexion.SendObject(request);
+        
+        if(esperarRespuesta(request)){
+            return true;
+        }else{
+            return false;
+        }
     }
 }
