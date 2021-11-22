@@ -1,6 +1,7 @@
 package UI;
 
 
+import Controlador.Membresia.ControladorMembresia;
 import javax.swing.ImageIcon;
 
 
@@ -11,15 +12,20 @@ import javax.swing.ImageIcon;
  */
 public class MenuPrincipal extends javax.swing.JFrame {
 
+    ControladorMembresia membresia = ControladorMembresia.getInstance();
+    
     public MenuPrincipal() {
         initComponents();
         setLocationRelativeTo(null); 
+        
+        setMembresia();
     } 
 
     
-    public MenuPrincipal(String user, int i){
-        initComponents();
-        jLabel2.setText(user);
+    public void setMembresia(){        
+        jLabel2.setText(membresia.jugador.getUserName());
+        int i = membresia.jugador.getAvatar();
+        
         if (i==1) {
             jLabel3.setIcon(new ImageIcon(getClass().getClassLoader().getResource("media/Avatar_1_1.png")));
         }
@@ -32,6 +38,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         if (i==4) {
             jLabel3.setIcon(new ImageIcon(getClass().getClassLoader().getResource("media/Avatar_4_1.png")));
         }
+        
     }
     
     @SuppressWarnings("unchecked")
@@ -51,9 +58,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel2.setText("Membresia");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(723, 75, -1, 26));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("user");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 70, 90, 30));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/media/Avatar_default.png.png"))); // NOI18N
         jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -64,7 +71,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(723, 21, 57, -1));
 
         jButton2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(0, 0, 0));
         jButton2.setText("Crear sala");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -74,7 +80,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 210, 180, 70));
 
         jButton1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(0, 0, 0));
         jButton1.setText("Unirse a sala");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -84,7 +89,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 210, 180, 70));
 
         jLabel1.setFont(new java.awt.Font("Comic Sans MS", 1, 36)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Timbiriche");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 90, -1, -1));
 
