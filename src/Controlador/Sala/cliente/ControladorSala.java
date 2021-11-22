@@ -17,8 +17,7 @@ public class ControladorSala extends ControladorSync implements Observer{
     private static ControladorSala instance = null;
 
     private ControladorSala() {
-        conexion = new Conexion("localhost", 4008);
-        conexion.addObserver(this);
+
     }
 
     public static ControladorSala getInstance() {
@@ -32,9 +31,12 @@ public class ControladorSala extends ControladorSync implements Observer{
     Conexion conexion;
     String ID = "";
     
-    private void initConexion(){
     ClientePeticionesHandler requestHandler;
+    
+    private void initConexion(String IP){
         try {
+           conexion = new Conexion(IP, 4008);
+           conexion.addObserver(this);
            conexion.Init();
         } catch (Exception e) {}
     }
@@ -73,8 +75,8 @@ public class ControladorSala extends ControladorSync implements Observer{
     }
     
     // Acciones
-    public boolean solicitarUnirseSala(Jugador jugador, String salaIP /*Implementar*/ ){
-        initConexion();
+    public boolean solicitarUnirseSala(Jugador jugador, String salaIP){
+        initConexion(salaIP);
         
         this.jugador = jugador;
         
