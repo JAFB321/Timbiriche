@@ -2,6 +2,7 @@ package Controlador.Sala.cliente;
 
 import Controlador.Conexiones.cliente.AccionCliente;
 import Controlador.Conexiones.cliente.Conexion;
+import Controlador.Conexiones.server.AccionServer;
 import Controlador.Sala.ControladorSync;
 import Controlador.Sala.Sala;
 import Controlador.Sala.cliente.AccionesCliente.*;
@@ -32,6 +33,7 @@ public class ControladorSala extends ControladorSync implements Observer{
     String ID = "";
     
     private void initConexion(){
+    ClientePeticionesHandler requestHandler;
         try {
            conexion.Init();
         } catch (Exception e) {}
@@ -46,6 +48,8 @@ public class ControladorSala extends ControladorSync implements Observer{
             setClienteID(accion.jugadorID);
             liberarAccion(accion.solicitudID);
         }
+        
+        if(msg instanceof AccionServer) requestHandler.handlePeticion((AccionServer)msg);
     }
     
     private void setClienteID(String ID){
