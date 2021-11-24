@@ -28,7 +28,7 @@ public class Sala implements Serializable{
     
     
     public Sala(){}
-    
+
     public JugadorHost getHost(){
         return host;
     }

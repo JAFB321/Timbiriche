@@ -3,6 +3,7 @@ package UI;
 import Controlador.Membresia.ControladorMembresia;
 import Controlador.Sala.server.ControladorSalaHost;
 import Timbiriche.estructuras.JugadorHost;
+import javax.swing.JOptionPane;
 
 /**
  * Clase que reprsenta la interfaz para crear una sala.
@@ -22,20 +23,20 @@ public class CrearSala extends javax.swing.JFrame {
         grupo_jugadores.add(nJugadores3);
         grupo_jugadores.add(nJugadores4);
         
-        grupo_tamano.add(tamaño20);
-        grupo_tamano.add(tamaño40);
-        grupo_tamano.add(tamaño10);
+        grupo_tamano.add(tamanio20);
+        grupo_tamano.add(tamanio40);
+        grupo_tamano.add(tamanio10);
         
         nJugadores2.setActionCommand("2");
         nJugadores3.setActionCommand("3");
         nJugadores4.setActionCommand("4");
         
-        tamaño10.setActionCommand("10");
-        tamaño20.setActionCommand("20");
-        tamaño40.setActionCommand("40");
+        tamanio10.setActionCommand("10");
+        tamanio20.setActionCommand("20");
+        tamanio40.setActionCommand("40");
         
         nJugadores2.setSelected(true);
-        tamaño10.setSelected(true);
+        tamanio10.setSelected(true);
     }
 
     @SuppressWarnings("unchecked")
@@ -48,9 +49,9 @@ public class CrearSala extends javax.swing.JFrame {
         btnAceptar = new javax.swing.JButton();
         txtNombreSala = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        tamaño40 = new javax.swing.JRadioButton();
-        tamaño10 = new javax.swing.JRadioButton();
-        tamaño20 = new javax.swing.JRadioButton();
+        tamanio40 = new javax.swing.JRadioButton();
+        tamanio10 = new javax.swing.JRadioButton();
+        tamanio20 = new javax.swing.JRadioButton();
         jLabel3 = new javax.swing.JLabel();
         nJugadores4 = new javax.swing.JRadioButton();
         nJugadores3 = new javax.swing.JRadioButton();
@@ -80,35 +81,35 @@ public class CrearSala extends javax.swing.JFrame {
         jLabel4.setText("Nombre de la sala:");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 58, -1, -1));
 
-        tamaño40.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        tamaño40.setText("40x40");
-        tamaño40.setOpaque(false);
-        tamaño40.addActionListener(new java.awt.event.ActionListener() {
+        tamanio40.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        tamanio40.setText("40x40");
+        tamanio40.setOpaque(false);
+        tamanio40.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tamaño40ActionPerformed(evt);
+                tamanio40ActionPerformed(evt);
             }
         });
-        jPanel1.add(tamaño40, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 237, -1, -1));
+        jPanel1.add(tamanio40, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 237, -1, -1));
 
-        tamaño10.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        tamaño10.setText("10x10");
-        tamaño10.setOpaque(false);
-        tamaño10.addActionListener(new java.awt.event.ActionListener() {
+        tamanio10.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        tamanio10.setText("10x10");
+        tamanio10.setOpaque(false);
+        tamanio10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tamaño10ActionPerformed(evt);
+                tamanio10ActionPerformed(evt);
             }
         });
-        jPanel1.add(tamaño10, new org.netbeans.lib.awtextra.AbsoluteConstraints(42, 237, -1, -1));
+        jPanel1.add(tamanio10, new org.netbeans.lib.awtextra.AbsoluteConstraints(42, 237, -1, -1));
 
-        tamaño20.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        tamaño20.setText("20x20");
-        tamaño20.setOpaque(false);
-        tamaño20.addActionListener(new java.awt.event.ActionListener() {
+        tamanio20.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        tamanio20.setText("20x20");
+        tamanio20.setOpaque(false);
+        tamanio20.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tamaño20ActionPerformed(evt);
+                tamanio20ActionPerformed(evt);
             }
         });
-        jPanel1.add(tamaño20, new org.netbeans.lib.awtextra.AbsoluteConstraints(131, 237, -1, -1));
+        jPanel1.add(tamanio20, new org.netbeans.lib.awtextra.AbsoluteConstraints(131, 237, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel3.setText("Tamaño del tablero:");
@@ -177,17 +178,17 @@ public class CrearSala extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_nJugadores4ActionPerformed
 
-    private void tamaño20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tamaño20ActionPerformed
+    private void tamanio20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tamanio20ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_tamaño20ActionPerformed
+    }//GEN-LAST:event_tamanio20ActionPerformed
 
-    private void tamaño40ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tamaño40ActionPerformed
+    private void tamanio40ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tamanio40ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_tamaño40ActionPerformed
+    }//GEN-LAST:event_tamanio40ActionPerformed
 
-    private void tamaño10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tamaño10ActionPerformed
+    private void tamanio10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tamanio10ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_tamaño10ActionPerformed
+    }//GEN-LAST:event_tamanio10ActionPerformed
 
     /**
      * Nos lleva a la interfaz de sala de espera.
@@ -196,17 +197,24 @@ public class CrearSala extends javax.swing.JFrame {
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
         
         String sala = txtNombreSala.getText();
+        
+        // Valida que el nombre de la sala no esta vacio.
+        if (sala.trim().equals("") || sala.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese nombre de la sala.", "AVISO", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        
         int tamaño = Integer.parseInt(grupo_tamano.getSelection().getActionCommand());
         int nJugadores = Integer.parseInt(grupo_jugadores.getSelection().getActionCommand());
         
         salaHost.CrearSala(sala, nJugadores, tamaño, new JugadorHost(membresia.jugador));
         
         SalaEsperaHost form = new SalaEsperaHost();
-        this.setVisible(false);
+        this.dispose();
         form.setVisible(true);
     }//GEN-LAST:event_btnAceptarActionPerformed
 
-
+    
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         try {
@@ -247,9 +255,9 @@ public class CrearSala extends javax.swing.JFrame {
     private javax.swing.JRadioButton nJugadores2;
     private javax.swing.JRadioButton nJugadores3;
     private javax.swing.JRadioButton nJugadores4;
-    private javax.swing.JRadioButton tamaño10;
-    private javax.swing.JRadioButton tamaño20;
-    private javax.swing.JRadioButton tamaño40;
+    private javax.swing.JRadioButton tamanio10;
+    private javax.swing.JRadioButton tamanio20;
+    private javax.swing.JRadioButton tamanio40;
     private javax.swing.JTextField txtNombreSala;
     // End of variables declaration//GEN-END:variables
 }

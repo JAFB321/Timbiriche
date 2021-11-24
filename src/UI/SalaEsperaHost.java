@@ -154,7 +154,7 @@ public class SalaEsperaHost extends javax.swing.JFrame implements ISalaHostListe
      */
     private void btnContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContinuarActionPerformed
         Juego form = new Juego();
-        this.setVisible(false);
+        this.dispose();
         form.setVisible(true);
     }//GEN-LAST:event_btnContinuarActionPerformed
 

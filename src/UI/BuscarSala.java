@@ -1,36 +1,25 @@
 package UI;
 
 import Controlador.Membresia.ControladorMembresia;
+import Controlador.Sala.Sala;
 import Controlador.Sala.cliente.ControladorSala;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
 /**
  * Clase que representa la interfaz grafica para buscar una sala.
+ *
  * @author Daniel Parra, Jesus Ramses, Jose Felix
  */
-public class BuscarSala extends javax.swing.JFrame{
+public class BuscarSala extends javax.swing.JFrame {
 
     ControladorSala sala = ControladorSala.getInstance();
     ControladorMembresia membresia = ControladorMembresia.getInstance();
-    
-    // Lista salas
-    DefaultListModel modeloLista = new DefaultListModel();
-    
+
+
     public BuscarSala() {
         initComponents();
-        listarSalas();
-        setLocationRelativeTo(null); 
-        
-        listaSalas.setModel(modeloLista);
-
-    }
-    
-    private void listarSalas(){
-        modeloLista.clear();
-        for (String a : sala.getSalasDisponibles()) {
-            modeloLista.addElement(a);
-        }
+        setLocationRelativeTo(null);
     }
 
     @SuppressWarnings("unchecked")
@@ -44,8 +33,7 @@ public class BuscarSala extends javax.swing.JFrame{
         jLabel5 = new javax.swing.JLabel();
         btnRegresar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        listaSalas = new javax.swing.JList<>();
+        txtIPSala = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
 
         jLabel3.setText("Nombre de usuario:");
@@ -66,8 +54,8 @@ public class BuscarSala extends javax.swing.JFrame{
         jPanel1.add(btnUnirme, new org.netbeans.lib.awtextra.AbsoluteConstraints(238, 317, 107, -1));
 
         jLabel5.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel5.setText("Salas disponibles");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(113, 67, -1, -1));
+        jLabel5.setText("Ingrese IP de la sala:");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 110, -1, -1));
 
         btnRegresar.setText("Regresar");
         btnRegresar.setOpaque(false);
@@ -83,15 +71,9 @@ public class BuscarSala extends javax.swing.JFrame{
         jLabel2.setText("Buscar sala");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 21, 480, -1));
 
-        listaSalas.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        listaSalas.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane1.setViewportView(listaSalas);
-
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(113, 109, 232, 190));
+        txtIPSala.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        txtIPSala.setText("[IP de la sala]");
+        jPanel1.add(txtIPSala, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 150, 300, 40));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/media/Fondo.jpg"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 400));
@@ -112,28 +94,33 @@ public class BuscarSala extends javax.swing.JFrame{
 
     /**
      * Nos regresa a la pantalla anterior. (Menu Principal)
-     * @param evt 
+     *
+     * @param evt
      */
     private void btnUnirmeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUnirmeActionPerformed
-        
-        boolean conectado = sala.solicitarUnirseSala(membresia.jugador, listaSalas.getSelectedValue());
-        
-        if(conectado){
-            SalaEspera form = new SalaEspera();
-            this.setVisible(false);
-            form.setVisible(true);
-        }else{
-            JOptionPane.showMessageDialog(this, "No has podido unirte a la sala","AVISO",JOptionPane.INFORMATION_MESSAGE);
+
+        if (txtIPSala.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No hay salas disponible con la IP dada.", "AVISO", JOptionPane.INFORMATION_MESSAGE);
+            return;
         }
         
+        boolean conectado = sala.solicitarUnirseSala(membresia.jugador, txtIPSala.getText());
+
+        if (conectado) {
+            SalaEspera form = new SalaEspera();
+            this.dispose();
+            form.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "No has podido unirte a la sala", "AVISO", JOptionPane.INFORMATION_MESSAGE);
+        }
+
     }//GEN-LAST:event_btnUnirmeActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         MenuPrincipal form = new MenuPrincipal();
-        this.setVisible(false);
+        this.dispose();
         form.setVisible(true);
     }//GEN-LAST:event_btnRegresarActionPerformed
-
 
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -170,8 +157,7 @@ public class BuscarSala extends javax.swing.JFrame{
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JList<String> listaSalas;
+    private javax.swing.JTextField txtIPSala;
     // End of variables declaration//GEN-END:variables
 }
