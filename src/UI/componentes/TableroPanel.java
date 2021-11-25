@@ -1,7 +1,19 @@
 package UI.componentes;
 
+import java.awt.Button;
+import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridLayout;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
+import javax.swing.AbstractButton;
+import javax.swing.ButtonGroup;
+import javax.swing.ButtonModel;
+import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 
 /**
@@ -11,13 +23,20 @@ import javax.swing.JRadioButton;
  */
 public class TableroPanel extends javax.swing.JPanel {
 
+    List<JRadioButton> botones = new ArrayList<>();
+    private int x1;
+    private int y1;
+    private int x2;
+    private int y2;
+
     public TableroPanel() {
         initComponents();
         botones();
+        mouse();
     }
 
     public void botones() {
-        
+
         // orden de los parametros: filas, columnas, espacio horizontal, espacio vertical
         // lo importante seria nomas cambiar las filas y las columnas dependiendo del tamaño del tablero
         GridLayout layout = new GridLayout(10, 10, 10, 10);
@@ -29,14 +48,71 @@ public class TableroPanel extends javax.swing.JPanel {
             JRadioButton boton = new JRadioButton();
             boton.setVisible(true);
             this.add(boton);
+            botones.add(boton);
             this.buttonGroup1.add(boton);
 
         }
-        
+
         this.setLayout(layout);
 
         this.revalidate();
 
+    }
+
+    public void mouse() {
+        MouseListener mouse = new MouseListener() {
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                dibujar();
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        };
+
+        for (JRadioButton botone : botones) {
+            botone.addMouseListener(mouse);
+        }
+    }
+
+    public void dibujar() {
+        for (JRadioButton botone : botones) {
+            if (botone.isSelected()) {
+                if (this.getX1() == 0 && this.getY1() == 0) {
+                    this.setX1(botone.getX());
+                    this.setY1(botone.getY());
+                } else {
+                    this.setX2(botone.getX());
+                    this.setY2(botone.getY());
+                    addLine(x1, y1, x2, y2, this.getGraphics());
+                }
+            }
+        }
+
+    }
+
+    public void addLine(int x, int y, int x2, int y2, Graphics g) {
+        super.paintComponents(g);
+        g.drawLine(x, y, x2, y2);
     }
 
     /**
@@ -73,6 +149,7 @@ public class TableroPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -86,8 +163,41 @@ public class TableroPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    public int getX2() {
+        return x2;
+    }
+
+    public void setX2(int x2) {
+        this.x2 = x2;
+    }
+
+    public int getY2() {
+        return y2;
+    }
+
+    public void setY2(int y2) {
+        this.y2 = y2;
+    }
+
+    public int getX1() {
+        return x1;
+    }
+
+    public void setX1(int x1) {
+        this.x1 = x1;
+    }
+
+    public int getY1() {
+        return y1;
+    }
+
+    public void setY1(int y1) {
+        this.y1 = y1;
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
     // End of variables declaration//GEN-END:variables
 }
