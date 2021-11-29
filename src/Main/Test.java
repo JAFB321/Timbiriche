@@ -14,13 +14,13 @@ public class Test {
         ControladorSalaHost salaHost = ControladorSalaHost.getInstance();
         
         // Host
-        JugadorHost jhost = new JugadorHost("123", "JAFB321", "#FFF", "CAT");
-        salaHost.CrearSala(jhost);
+        //JugadorHost jhost = new JugadorHost("123", "JAFB321", "#FFF", "CAT");
+        //salaHost.CrearSala(jhost);
         
         
         // Cliente
-        Jugador jcliente = new Jugador("000", "player", "#fff", "rino");
-        sala.solicitarUnirseSala(jcliente, "localhost");
+        //Jugador jcliente = new Jugador("000", "player", "#fff", "rino");
+        //sala.solicitarUnirseSala(jcliente, "localhost");
         
         
         

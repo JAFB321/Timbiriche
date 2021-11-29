@@ -163,7 +163,7 @@ public class SalaEspera extends javax.swing.JFrame implements ISalaListener{
      */
     private void btnAbandonarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbandonarActionPerformed
         MenuPrincipal form = new MenuPrincipal();
-        this.setVisible(false);
+        this.dispose();
         form.setVisible(true);
     }//GEN-LAST:event_btnAbandonarActionPerformed
 

@@ -7,23 +7,24 @@ import javax.swing.JOptionPane;
 
 /**
  * Clase que representa la interfaz grafica para crear una membresia.
+ *
  * @author Daniel Parra, Jesus Ramses, Jose Felix
  */
 public class InfoMembresia extends javax.swing.JFrame {
 
     ControladorMembresia membresia = ControladorMembresia.getInstance();
-    
+
     public InfoMembresia() {
         initComponents();
-        setLocationRelativeTo(null); 
+        setLocationRelativeTo(null);
         
-        
+
         buttonGroup1.add(radio1);
         buttonGroup1.add(radio3);
         buttonGroup1.add(radio4);
         buttonGroup1.add(radio2);
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -128,41 +129,40 @@ public class InfoMembresia extends javax.swing.JFrame {
 
     /**
      * Nos regresa al menu principal.
-     * @param evt 
+     *
+     * @param evt
      */
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-        
+
         if (this.avatar() == 0) {
-            JOptionPane.showMessageDialog(this, "Selecione un avatar","AVISO",JOptionPane.INFORMATION_MESSAGE);
-        }else if(txtNombre.equals("")){
-            JOptionPane.showMessageDialog(this, "Ingrese su nombre de usuario","AVISO",JOptionPane.INFORMATION_MESSAGE);
-        }
-        else{
-            
+            JOptionPane.showMessageDialog(this, "Selecione un avatar", "AVISO", JOptionPane.INFORMATION_MESSAGE);
+        } else if (txtNombre.getText().trim().equals("") || txtNombre.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese su nombre de usuario", "AVISO", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+
             membresia.jugador.setUserName(txtNombre.getText());
             membresia.jugador.setAvatar(avatar());
-            
+
             MenuPrincipal form = new MenuPrincipal();
-            this.setVisible(false);
+            this.dispose();
             form.setVisible(true);
         }
     }//GEN-LAST:event_btnAceptarActionPerformed
 
-    private int avatar(){
+    private int avatar() {
         if (radio1.isSelected()) {
-            return 1; 
-        }else if (radio2.isSelected()) {
+            return 1;
+        } else if (radio2.isSelected()) {
             return 2;
-        }else if (radio3.isSelected()){
+        } else if (radio3.isSelected()) {
             return 3;
-        }else if (radio4.isSelected()){
+        } else if (radio4.isSelected()) {
             return 4;
         }
         return 0;
     }
-    
-    
-    
+
+
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
 
     }//GEN-LAST:event_jLabel1MouseClicked
@@ -170,7 +170,6 @@ public class InfoMembresia extends javax.swing.JFrame {
     private void radio1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radio1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_radio1ActionPerformed
-
 
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -199,7 +198,6 @@ public class InfoMembresia extends javax.swing.JFrame {
         });
     }
 
-    private int avatar;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar;
     private javax.swing.ButtonGroup buttonGroup1;

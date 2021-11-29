@@ -5,6 +5,7 @@ import Controlador.Conexiones.server.Cliente;
 import Controlador.Conexiones.server.Server;
 import Controlador.Sala.ControladorSync;
 import Controlador.Sala.Sala;
+import Controlador.Sala.cliente.ControladorSala;
 import Controlador.Sala.eventosUI.SalaEvents;
 import Controlador.Sala.eventosUI.SalaHostEvents;
 import Timbiriche.estructuras.JugadorHost;
@@ -60,7 +61,7 @@ public class ControladorSalaHost extends ControladorSync implements Observer {
     
     
     // ------------ Sala Host ------------
-    Sala sala = null;
+    Sala sala;
     
     public Sala getSala(){
         return sala;

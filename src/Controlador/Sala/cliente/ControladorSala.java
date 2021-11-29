@@ -11,6 +11,7 @@ import Controlador.Sala.eventosUI.SalaHostEvents;
 import Controlador.Sala.server.AccionesServer.*;
 import Timbiriche.estructuras.Jugador;
 import UI.eventos.sala.ISalaListener;
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -66,11 +67,6 @@ public class ControladorSala extends ControladorSync implements Observer{
             jugador.setID(ID);
         }
     }
-    
-    public String[] getSalasDisponibles(){
-        return new String[]{"localhost"};
-    }
-    
     
     // ------------ Notificador Eventos UI ------------
     SalaEvents eventosSala = new SalaEvents();

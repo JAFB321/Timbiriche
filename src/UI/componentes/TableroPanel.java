@@ -1,46 +1,144 @@
-
 package UI.componentes;
 
+import java.awt.Button;
+import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.GridLayout;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
+import javax.swing.AbstractButton;
+import javax.swing.ButtonGroup;
+import javax.swing.ButtonModel;
+import javax.swing.JOptionPane;
+import javax.swing.JRadioButton;
 
 /**
  * Clase que representa un tablero para el juego.
+ *
  * @author Daniel Parra, Jesus Ramses, Jose Felix
  */
 public class TableroPanel extends javax.swing.JPanel {
 
+    List<JRadioButton> botones = new ArrayList<>();
+    private int x1;
+    private int y1;
+    private int x2;
+    private int y2;
+
     public TableroPanel() {
         initComponents();
-        
+        botones();
+        mouse();
+    }
+
+    public void botones() {
+
+        // orden de los parametros: filas, columnas, espacio horizontal, espacio vertical
+        // lo importante seria nomas cambiar las filas y las columnas dependiendo del tamaño del tablero
+        GridLayout layout = new GridLayout(10, 10, 10, 10);
+
+        // ejemplo de 10x10 se añaden 100 elementos
+        // ya nomas para el de 20x20 serian pues 400 y asi
+        for (int x = 0; x < 100; x++) {
+
+            JRadioButton boton = new JRadioButton();
+            boton.setVisible(true);
+            this.add(boton);
+            botones.add(boton);
+            this.buttonGroup1.add(boton);
+
+        }
+
+        this.setLayout(layout);
+
+        this.revalidate();
+
+    }
+
+    public void mouse() {
+        MouseListener mouse = new MouseListener() {
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                dibujar();
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        };
+
+        for (JRadioButton botone : botones) {
+            botone.addMouseListener(mouse);
+        }
+    }
+
+    public void dibujar() {
+        for (JRadioButton botone : botones) {
+            if (botone.isSelected()) {
+                if (this.getX1() == 0 && this.getY1() == 0) {
+                    this.setX1(botone.getX());
+                    this.setY1(botone.getY());
+                } else {
+                    this.setX2(botone.getX());
+                    this.setY2(botone.getY());
+                    addLine(x1, y1, x2, y2, this.getGraphics());
+                }
+            }
+        }
+
+    }
+
+    public void addLine(int x, int y, int x2, int y2, Graphics g) {
+        super.paintComponents(g);
+        g.drawLine(x, y, x2, y2);
     }
 
     /**
      * Metodo que pinta el tablero del juego en la pantalla.
-     * @param g 
+     *
+     * @param g
      */
-    @Override
-    public void paint(Graphics g) {
-        super.paint(g); 
-        
-        //g.drawLine(0, 0, 100, 100);
-        
-        // Ejemplo tablero 20x20
-        
-        int alto = this.getSize().height;
-        int ancho = this.getSize().width;
-        
-        int separacion = Math.floorDiv(alto, 20);
-        
-        for (int x = 0; x < ancho; x+=separacion) {
-            for (int y = 0; y < alto; y+=separacion) {
-                g.drawOval(x, y, 5, 5);
-                g.fillOval(x, y, 5, 5);
-            }
-        }
-    }
-    
-    
-
+//    @Override
+//    public void paint(Graphics g) {
+//        super.paint(g);
+//
+//        //g.drawLine(0, 0, 100, 100);
+//        // Ejemplo tablero 20x20
+//        int alto = this.getSize().height;
+//        int ancho = this.getSize().width;
+//
+//        int separacion = Math.floorDiv(alto, 10);
+//
+//        for (int x = 0; x < ancho; x += separacion) {
+//
+//            for (int y = 0; y < alto; y += separacion) {
+//                g.drawOval(x, y, 5, 5);
+//                g.fillOval(x, y, 5, 5);
+//            }
+//        }
+//    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -50,19 +148,56 @@ public class TableroPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 386, Short.MAX_VALUE)
+            .addGap(0, 530, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 324, Short.MAX_VALUE)
+            .addGap(0, 577, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    public int getX2() {
+        return x2;
+    }
+
+    public void setX2(int x2) {
+        this.x2 = x2;
+    }
+
+    public int getY2() {
+        return y2;
+    }
+
+    public void setY2(int y2) {
+        this.y2 = y2;
+    }
+
+    public int getX1() {
+        return x1;
+    }
+
+    public void setX1(int x1) {
+        this.x1 = x1;
+    }
+
+    public int getY1() {
+        return y1;
+    }
+
+    public void setY1(int y1) {
+        this.y1 = y1;
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
     // End of variables declaration//GEN-END:variables
 }
