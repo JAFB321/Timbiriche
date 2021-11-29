@@ -46,4 +46,19 @@ public class Linea implements Serializable{
     public void setPuntoB(Punto puntoB) {
         this.puntoB = puntoB;
     }
+    
+    public boolean esIgual(Linea linea){
+        int aX = this.getPuntoA().getX();
+        int aY = this.getPuntoA().getY();
+        int bX = this.getPuntoB().getX();
+        int bY = this.getPuntoB().getY();
+        
+        int _aX = linea.getPuntoA().getX();
+        int _aY = linea.getPuntoA().getY();
+        int _bX = linea.getPuntoB().getX();
+        int _bY = linea.getPuntoB().getY();
+        
+        if(aX == _aX && aY == _aY && bX == _bX && bY == _bY)return true;
+        else return false;
+    }
 }
