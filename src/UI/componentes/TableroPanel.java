@@ -2,9 +2,12 @@ package UI.componentes;
 
 import java.awt.Button;
 import java.awt.Color;
+import java.awt.ComponentOrientation;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -32,7 +35,6 @@ public class TableroPanel extends javax.swing.JPanel {
     public TableroPanel() {
         initComponents();
         botones();
-        mouse();
     }
 
     public void botones() {
@@ -41,73 +43,58 @@ public class TableroPanel extends javax.swing.JPanel {
         // lo importante seria nomas cambiar las filas y las columnas dependiendo del tamaño del tablero
         GridLayout layout = new GridLayout(10, 10, 10, 10);
 
+        // Establece GridLayout como el Layout del panel.
+        this.setLayout(layout);
+        // La orientacion es practicamente el como va a acomodar los elementos
+        this.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+        
         // ejemplo de 10x10 se añaden 100 elementos
         // ya nomas para el de 20x20 serian pues 400 y asi
         for (int x = 0; x < 100; x++) {
 
             JRadioButton boton = new JRadioButton();
+            boton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    dibujar(boton);
+                }
+            });
+
             boton.setVisible(true);
             this.add(boton);
             botones.add(boton);
-            this.buttonGroup1.add(boton);
+            //this.buttonGroup1.add(boton);
 
         }
-
-        this.setLayout(layout);
 
         this.revalidate();
 
     }
+    
+    public void dibujar(JRadioButton radioBtn) {
+        int seleccionado = otroBotonSeleccionado(radioBtn);
 
-    public void mouse() {
-        MouseListener mouse = new MouseListener() {
-
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                dibujar();
-
-            }
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-
-            }
-        };
-
-        for (JRadioButton botone : botones) {
-            botone.addMouseListener(mouse);
+        if (seleccionado != -1) {
+            int x1 = radioBtn.getX();
+            int y1 = radioBtn.getY();
+            int x2 = botones.get(seleccionado).getX();
+            int y2 = botones.get(seleccionado).getY();
+            botones.get(seleccionado).setEnabled(false);
+            botones.get(botones.indexOf(radioBtn)).setEnabled(false);
+            addLine(x1, y1, x2, y2, this.getGraphics());
         }
+
     }
 
-    public void dibujar() {
+    public int otroBotonSeleccionado(JRadioButton ignorar) {
         for (JRadioButton botone : botones) {
-            if (botone.isSelected()) {
-                if (this.getX1() == 0 && this.getY1() == 0) {
-                    this.setX1(botone.getX());
-                    this.setY1(botone.getY());
-                } else {
-                    this.setX2(botone.getX());
-                    this.setY2(botone.getY());
-                    addLine(x1, y1, x2, y2, this.getGraphics());
+            if (!botone.equals(ignorar)) {
+                if (botone.isEnabled() && botone.isSelected()) {
+                    return botones.indexOf(botone);
                 }
             }
         }
-
+        return -1;
     }
 
     public void addLine(int x, int y, int x2, int y2, Graphics g) {
