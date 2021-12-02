@@ -2,6 +2,7 @@ package Controlador.Sala.server;
 
 import Controlador.Conexiones.server.AccionServer;
 import Controlador.Sala.Sala;
+import Timbiriche.estructuras.Juego;
 import Timbiriche.estructuras.Jugador;
 import Timbiriche.estructuras.JugadorHost;
 
@@ -41,6 +42,14 @@ public class AccionesServer {
             this.sala = sala;
             this.solicitudID = solicitudID;
             this.isSync = true;
+        }
+    }
+    
+    public static class IniciarJuego extends AccionServer{
+        public Juego juego;
+
+        public IniciarJuego(Juego juego) {
+            this.juego = juego;
         }
     }
 }
