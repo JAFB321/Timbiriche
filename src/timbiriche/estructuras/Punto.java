@@ -27,4 +27,9 @@ public class Punto implements Serializable{
     public void setY(int y) {
         this.y = y;
     }
+    
+    public boolean esIgual(Punto p){
+        if(this.x == p.x && this.y == p.y) return true;
+        else return false;
+    }
 }
