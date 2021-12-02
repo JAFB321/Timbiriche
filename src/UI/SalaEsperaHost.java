@@ -1,11 +1,14 @@
 package UI;
 
+import Controlador.Juego.cliente.ControladorJuego;
+import Controlador.Juego.server.ControladorJuegoHost;
 import Controlador.Membresia.ControladorMembresia;
 import Controlador.Sala.server.ControladorSalaHost;
 import Timbiriche.estructuras.Jugador;
 import UI.eventos.sala.ISalaHostListener;
 import UI.eventos.sala.ISalaListener;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 /**
  * Clase que representa la interfaz de la sala de espera.
@@ -153,9 +156,13 @@ public class SalaEsperaHost extends javax.swing.JFrame implements ISalaHostListe
      * @param evt 
      */
     private void btnContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContinuarActionPerformed
-        Juego form = new Juego();
-        this.dispose();
-        form.setVisible(true);
+        if(sala.IniciarJuego()){
+            Juego form = new Juego(ControladorJuegoHost.getInstance());
+            this.dispose();
+            form.setVisible(true);
+        } else{
+            JOptionPane.showMessageDialog(this, "No se ha podido iniciar el juego");
+        }
     }//GEN-LAST:event_btnContinuarActionPerformed
 
 
@@ -215,5 +222,10 @@ public class SalaEsperaHost extends javax.swing.JFrame implements ISalaHostListe
     @Override
     public void on_JugadorAbandono(Jugador jugador) {
         listarJugadores();
+    }
+
+    @Override
+    public void on_IniciarJuego(Timbiriche.estructuras.Juego juego) {
+        
     }
 }

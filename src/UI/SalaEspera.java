@@ -1,7 +1,9 @@
 package UI;
 
+import Controlador.Juego.cliente.ControladorJuego;
 import Controlador.Membresia.ControladorMembresia;
 import Controlador.Sala.cliente.ControladorSala;
+import Timbiriche.estructuras.Juego;
 import Timbiriche.estructuras.Jugador;
 import UI.eventos.sala.ISalaListener;
 import javax.swing.DefaultListModel;
@@ -226,5 +228,12 @@ public class SalaEspera extends javax.swing.JFrame implements ISalaListener{
     @Override
     public void on_JugadorAbandono(Jugador jugador) {
         listarJugadores();
+    }
+
+    @Override
+    public void on_IniciarJuego(Juego juego) {
+        UI.Juego form = new UI.Juego(ControladorJuego.getInstance());
+        this.dispose();
+        form.setVisible(true);
     }
 }
