@@ -9,7 +9,7 @@ public class Casilla {
     Punto puntoD;
     
     Jugador jugador;
-
+    
     public Casilla(Jugador jugador, Punto puntoA, Punto puntoB, Punto puntoC, Punto puntoD) {
         this.puntoA = puntoA;
         this.puntoB = puntoB;
