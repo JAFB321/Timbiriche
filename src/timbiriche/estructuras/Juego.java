@@ -6,8 +6,8 @@ import java.util.ArrayList;
 public class Juego implements Serializable{
 
     protected JugadorHost host;
-    protected ArrayList<Jugador> jugadores;
     protected Tablero tablero;
+    public ArrayList<Jugador> jugadores;
     
     //Estado
     protected Jugador turno;
@@ -15,11 +15,13 @@ public class Juego implements Serializable{
     public Juego(JugadorHost host, Tablero tablero, Jugador[] jugadores ){
         this.host = host;
         this.tablero = tablero;
-        this.jugadores = new ArrayList<>();
+        this.jugadores = new ArrayList<Jugador>();
         
+        this.jugadores.add(host);
         for (Jugador j : jugadores) {
             this.jugadores.add(j);
         }
+        
     }
 
     public JugadorHost getHost() {
