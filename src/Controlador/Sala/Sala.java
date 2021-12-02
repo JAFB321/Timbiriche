@@ -25,9 +25,17 @@ public class Sala implements Serializable{
         setHost(host);
     }
     
-    
-    
     public Sala(){}
+
+    public int getTamañoTablero() {
+        return tamañoTablero;
+    }
+
+    public int getNumJugadores() {
+        return nJugadores;
+    }
+    
+    
 
     public JugadorHost getHost(){
         return host;
