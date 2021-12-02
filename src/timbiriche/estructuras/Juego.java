@@ -40,5 +40,10 @@ public class Juego implements Serializable{
         return turno;
     }
     
-    
+    public void actualizarJuego(Juego juego){
+        this.host = juego.host;
+        this.jugadores = (ArrayList<Jugador>)juego.jugadores.clone();
+        this.tablero = juego.tablero; 
+        this.turno = juego.turno;
+    }
 }   
