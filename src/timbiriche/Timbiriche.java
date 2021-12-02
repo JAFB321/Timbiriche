@@ -20,36 +20,52 @@ public class Timbiriche extends Juego{
         return this;
     }
 
-    public boolean trazarLinea(Jugador jugador, Linea linea){
+    public Casilla[] trazarLinea(Jugador jugador, Linea linea) throws Exception{
         
         if(!jugador.getID().equals(turno.getID())){
-            return false;
+            throw new Exception("No es tu turno");
         }
         
         if(!tablero.estaDisponible(linea)){
-            return false;
+            throw new Exception("Ya hay una linea en ese lugar");
         }
         
-        Casilla casillaFormada = tablero.dibujarLinea(linea);
-        
-        if(casillaFormada != null){
-            
-        }
+        Casilla[] casillasFormadas = tablero.dibujarLinea(linea);
+        //int nJugadores = jugadores.size();
         
         nextJugador();
-        return true;
+        return casillasFormadas;
     }
     
-    public boolean checkGanador(){
-        return true;
+    public Jugador checkGanador(){
+        if(tablero.getCasillas().length >= 0/*(tablero.getAlto()-1)*(tablero.getAncho()-1)*/) {
+            Jugador ganador = null;
+            int nCasillas = 0;
+            
+            for (Jugador jugador : jugadores) {
+                if(tablero.getCasillas(jugador) > nCasillas){
+                    ganador = jugador;
+                    nCasillas = tablero.getCasillas(jugador);
+                }
+            }
+            
+            return ganador;
+        }
+        
+        return null;
     }
     
     private void nextJugador(){
+        int nJugadores = jugadores.size();
         int currentPos = jugadores.indexOf(turno);
         Jugador proximo = null;
-        
-        if(currentPos >= jugadores.size()) proximo = jugadores.get(0);
-        proximo = jugadores.get(currentPos+1);
+
+        if(currentPos >= (nJugadores-1)) {
+            proximo = jugadores.get(0);
+        }
+        else{
+            proximo = jugadores.get(currentPos+1);
+        }
         
         this.turno = proximo;
     }
