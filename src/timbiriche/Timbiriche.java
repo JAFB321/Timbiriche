@@ -38,7 +38,7 @@ public class Timbiriche extends Juego{
     }
     
     public Jugador checkGanador(){
-        if(tablero.getCasillas().length >= 0/*(tablero.getAlto()-1)*(tablero.getAncho()-1)*/) {
+        if(tablero.getCasillas().length >= (tablero.getAlto()-1)*(tablero.getAncho()-1)) {
             Jugador ganador = null;
             int nCasillas = 0;
             
