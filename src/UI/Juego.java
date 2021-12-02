@@ -1,15 +1,20 @@
 package UI;
 
+import Controlador.Juego.IControladorJuego;
+import Timbiriche.estructuras.Jugador;
 import UI.componentes.TableroPanel;
-import java.awt.Graphics;
+import UI.eventos.juego.IGameEventsListener;
+import javax.swing.JOptionPane;
 
 /**
  * Esta clase representa el panel
  * @author Daniel Parra, Jesus Ramses, Jose Felix
  */
-public class Juego extends javax.swing.JFrame {
-
-    public Juego() {
+public class Juego extends javax.swing.JFrame implements IGameEventsListener{
+    
+    IControladorJuego controladorJuego;
+    
+    public Juego(IControladorJuego controladorJuego) {
         initComponents();
         
         panelTablero.setVisible(false);
@@ -19,7 +24,15 @@ public class Juego extends javax.swing.JFrame {
         this.add(tablero);
         
         setLocationRelativeTo(null); 
+        
+        this.controladorJuego = controladorJuego;
     }
+
+    public Juego() {
+        
+    }
+    
+    
     
     private void dibujarTablero(){
        
@@ -227,4 +240,14 @@ public class Juego extends javax.swing.JFrame {
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JPanel panelTablero;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void on_Error(String msg) {
+        JOptionPane.showMessageDialog(this, msg, "Ha ocurrido un error", 1);
+    }
+
+    @Override
+    public void on_LineaTrazada(Jugador jugador, Timbiriche.estructuras.Juego juegoActualizado) {
+        // Aqui actualizar el tablero
+    }
 }
