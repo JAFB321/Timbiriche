@@ -2,6 +2,7 @@ package Controlador.Sala.eventosUI;
 
 // Observable que recibe los eventos desde el controlador y los notifica a la UI
 
+import Timbiriche.estructuras.Juego;
 import Timbiriche.estructuras.Jugador;
 import UI.eventos.sala.ISalaListener;
 import java.util.ArrayList;
@@ -16,5 +17,9 @@ public class SalaEvents {
     
     public void notificar_JugadorAbandono(Jugador nuevo){
         listeners.forEach(listener -> listener.on_JugadorAbandono(nuevo));
+    }
+    
+    public void IniciarJuego(Juego juego){
+        listeners.forEach(listener -> listener.on_IniciarJuego(juego));
     }
 }
