@@ -3,6 +3,7 @@ package Controlador.Sala.cliente;
 import Controlador.Conexiones.cliente.AccionCliente;
 import Controlador.Conexiones.cliente.Conexion;
 import Controlador.Conexiones.server.AccionServer;
+import Controlador.Juego.cliente.ControladorJuego;
 import Controlador.Sala.ControladorSync;
 import Controlador.Sala.Sala;
 import Controlador.Sala.cliente.AccionesCliente.*;
@@ -56,6 +57,14 @@ public class ControladorSala extends ControladorSync implements Observer{
             
             setClienteID(accion.jugadorID);
             liberarAccion(accion.solicitudID);
+        }
+        
+        if (msg instanceof IniciarJuego) {
+            IniciarJuego accion = (IniciarJuego) msg;
+            ControladorJuego controladorJuego = ControladorJuego.getInstance();
+            
+            eventosSala.IniciarJuego(accion.juego);
+            controladorJuego.IniciarJuego(conexion, accion.juego, this.jugador);
         }
         
         if(msg instanceof AccionServer) requestHandler.handlePeticion((AccionServer)msg);

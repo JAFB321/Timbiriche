@@ -1,8 +1,10 @@
 package Controlador.Sala.server;
 
 import Controlador.Conexiones.cliente.AccionCliente;
+import Controlador.Conexiones.server.AccionServer;
 import Controlador.Conexiones.server.Cliente;
 import Controlador.Conexiones.server.Server;
+import Controlador.Juego.server.ControladorJuegoHost;
 import Controlador.Sala.ControladorSync;
 import Controlador.Sala.Sala;
 import Controlador.Sala.cliente.ControladorSala;
@@ -80,7 +82,19 @@ public class ControladorSalaHost extends ControladorSync implements Observer {
         }
     }
     
-    
+    public boolean IniciarJuego(){
+        ControladorJuegoHost controladorJuego = ControladorJuegoHost.getInstance();
+        
+        if(controladorJuego.CrearJuego(server, sala.getHost(), sala.getJugadores(), sala.getTamañoTablero())){
+            
+            AccionServer juegoCreado = new AccionesServer.IniciarJuego(controladorJuego.getJuego());
+            server.sendToClients(juegoCreado);
+            
+            return true;
+        }
+        
+        return false;
+    }
     
     // ------------ Acciones ------------
 
