@@ -2,7 +2,10 @@
 package Timbiriche.estructuras;
 
 // Representa cuatro Lineas que forman una casilla valida de un jugador
-public class Casilla {
+
+import java.io.Serializable;
+
+public class Casilla implements Serializable{
     Punto puntoA;
     Punto puntoB;
     Punto puntoC;
@@ -33,5 +36,11 @@ public class Casilla {
     public Punto getPuntoC() {
         return puntoC;
     }
+
+    public Punto getPuntoD() {
+        return puntoD;
+    }
+    
+    
        
 }

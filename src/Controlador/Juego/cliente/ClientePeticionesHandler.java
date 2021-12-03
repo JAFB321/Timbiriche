@@ -44,7 +44,7 @@ public class ClientePeticionesHandler {
     
     public void notificar_LineaTrazada(notificar_LineaTrazada accion){
         // algo a la UI 
-        eventosJuego.notificar_LineaTrazada(accion.jugador, accion.juegoActualizado);
+        eventosJuego.notificar_LineaTrazada(accion.jugador, accion.turno, accion.tableroActualizado);
     }
     
     public void aceptar_TrazarLinea(aceptar_TrazarLinea accion){

@@ -71,4 +71,15 @@ public class Linea implements Serializable{
         
         return false;
     }
+    
+    public boolean esValida(){
+        int[] direccion = this.getDireccionAB();
+        int x = direccion[0];
+        int y = direccion[1];
+        int dif = Math.abs(x - y);
+        
+        if(x>=-1 && x<=1 && y>=-1 && y<=1 && dif == 1){
+            return true;
+        }else return false;
+    }
 }

@@ -50,7 +50,7 @@ public class ControladorJuego extends ControladorSync implements Observer, ICont
      // ------------ Notificador Eventos UI ------------
     JuegoEvents eventosJuego = new JuegoEvents();
     
-    public void listenSalaEvents(IGameEventsListener listener){
+    public void listenJuegoEvents(IGameEventsListener listener){
         eventosJuego.listeners.add(listener);
     }
     

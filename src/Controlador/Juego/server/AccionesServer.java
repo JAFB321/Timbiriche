@@ -3,6 +3,7 @@ package Controlador.Juego.server;
 import Controlador.Conexiones.server.AccionServer;
 import Timbiriche.estructuras.Juego;
 import Timbiriche.estructuras.Jugador;
+import Timbiriche.estructuras.Tablero;
 
 public class AccionesServer {
     public static class notificar_Error extends AccionServer{
@@ -27,11 +28,13 @@ public class AccionesServer {
     
      public static class notificar_LineaTrazada extends AccionServer{
          public Jugador jugador;
-         public Juego juegoActualizado;
+         public Jugador turno;
+         public Tablero tableroActualizado;
 
-        public notificar_LineaTrazada(Jugador jugador, Juego juegoActualizado) {
+        public notificar_LineaTrazada(Jugador jugador, Jugador turno, Tablero tableroActualizado) {
             this.jugador = jugador;
-            this.juegoActualizado = juegoActualizado;
+            this.turno = turno;
+            this.tableroActualizado = tableroActualizado;
         }
      }
 }

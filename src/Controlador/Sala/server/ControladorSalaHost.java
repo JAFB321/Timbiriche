@@ -85,9 +85,20 @@ public class ControladorSalaHost extends ControladorSync implements Observer {
     public boolean IniciarJuego(){
         ControladorJuegoHost controladorJuego = ControladorJuegoHost.getInstance();
         
+        String[] colores = {"red", "blue", "orange", "black", "green"};
+        
+        for (int i = 0; i < sala.getJugadores().length; i++) {
+            sala.getJugadores()[i].setColor(colores[i]);
+        }
+        
         if(controladorJuego.CrearJuego(server, sala.getHost(), sala.getJugadores(), sala.getTamañoTablero())){
             
             AccionServer juegoCreado = new AccionesServer.IniciarJuego(controladorJuego.getJuego());
+            
+            for (int i = 0; i < sala.getJugadores().length; i++) {
+                controladorJuego.getJuego().getJugadores()[i].setColor(colores[i]);
+            }
+            
             server.sendToClients(juegoCreado);
             
             return true;

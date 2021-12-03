@@ -17,12 +17,22 @@ public class Juego implements Serializable{
         this.tablero = tablero;
         this.jugadores = new ArrayList<Jugador>();
         
-        this.jugadores.add(host);
+        boolean isHost = false;
         for (Jugador j : jugadores) {
             this.jugadores.add(j);
+            if(j instanceof JugadorHost) isHost=true;
         }
-        
+        if(!isHost)this.jugadores.add(host);
     }
+
+    public Juego(Juego juego) {
+        this.host = juego.host;
+        this.jugadores = (ArrayList<Jugador>)juego.jugadores.clone();
+        this.tablero = new Tablero().actualizarTablero(juego.tablero);
+        this.turno = juego.turno;
+    }
+    
+    
 
     public JugadorHost getHost() {
         return host;
@@ -40,10 +50,12 @@ public class Juego implements Serializable{
         return turno;
     }
     
-    public void actualizarJuego(Juego juego){
+    public Juego actualizarJuego(Juego juego){
         this.host = juego.host;
         this.jugadores = (ArrayList<Jugador>)juego.jugadores.clone();
-        this.tablero = juego.tablero; 
+        this.tablero = new Tablero().actualizarTablero(juego.tablero);
         this.turno = juego.turno;
+        
+        return this;
     }
 }   

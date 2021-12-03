@@ -9,7 +9,9 @@ import Controlador.Juego.eventosUI.JuegoEvents;
 import Controlador.Juego.server.AccionesServer.*;
 import Timbiriche.Timbiriche;
 import Timbiriche.estructuras.Casilla;
+import Timbiriche.estructuras.Juego;
 import Timbiriche.estructuras.Jugador;
+import Timbiriche.estructuras.Tablero;
 
 public class HostPeticionesHandler {
 
@@ -45,10 +47,10 @@ public class HostPeticionesHandler {
             AccionServer respuesta = new aceptar_TrazarLinea(accion.accionID());
             server.sendToClients(respuesta, cliente.ID);
             
-            AccionServer notificarJugadores = new notificar_LineaTrazada(jugador, juego);
+            AccionServer notificarJugadores = new notificar_LineaTrazada(jugador, juego.getJugadorTurno() , new Tablero().actualizarTablero(juego.getTablero()));
             server.sendToClients(notificarJugadores);
             
-            eventosJuego.notificar_LineaTrazada(jugador, juego);
+            eventosJuego.notificar_LineaTrazada(jugador, juego.getJugadorTurno() , new Tablero().actualizarTablero(juego.getTablero()));
             
         } catch (Exception e) {
             AccionServer respuesta = new notificar_Error(e.getMessage(), accion.accionID());

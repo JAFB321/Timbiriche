@@ -24,7 +24,6 @@ public class CrearSala extends javax.swing.JFrame {
         grupo_jugadores.add(nJugadores4);
         
         grupo_tamano.add(tamanio20);
-        grupo_tamano.add(tamanio40);
         grupo_tamano.add(tamanio10);
         
         nJugadores2.setActionCommand("2");
@@ -33,7 +32,6 @@ public class CrearSala extends javax.swing.JFrame {
         
         tamanio10.setActionCommand("10");
         tamanio20.setActionCommand("20");
-        tamanio40.setActionCommand("40");
         
         nJugadores2.setSelected(true);
         tamanio10.setSelected(true);
@@ -49,7 +47,6 @@ public class CrearSala extends javax.swing.JFrame {
         btnAceptar = new javax.swing.JButton();
         txtNombreSala = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        tamanio40 = new javax.swing.JRadioButton();
         tamanio10 = new javax.swing.JRadioButton();
         tamanio20 = new javax.swing.JRadioButton();
         jLabel3 = new javax.swing.JLabel();
@@ -80,16 +77,6 @@ public class CrearSala extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel4.setText("Nombre de la sala:");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 58, -1, -1));
-
-        tamanio40.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        tamanio40.setText("40x40");
-        tamanio40.setOpaque(false);
-        tamanio40.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tamanio40ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(tamanio40, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 237, -1, -1));
 
         tamanio10.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         tamanio10.setText("10x10");
@@ -182,10 +169,6 @@ public class CrearSala extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tamanio20ActionPerformed
 
-    private void tamanio40ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tamanio40ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tamanio40ActionPerformed
-
     private void tamanio10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tamanio10ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tamanio10ActionPerformed
@@ -257,7 +240,6 @@ public class CrearSala extends javax.swing.JFrame {
     private javax.swing.JRadioButton nJugadores4;
     private javax.swing.JRadioButton tamanio10;
     private javax.swing.JRadioButton tamanio20;
-    private javax.swing.JRadioButton tamanio40;
     private javax.swing.JTextField txtNombreSala;
     // End of variables declaration//GEN-END:variables
 }

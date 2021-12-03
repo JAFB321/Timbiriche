@@ -1,9 +1,15 @@
 package UI;
 
 import Controlador.Juego.IControladorJuego;
+import Timbiriche.estructuras.Casilla;
 import Timbiriche.estructuras.Jugador;
+import Timbiriche.estructuras.Tablero;
 import UI.componentes.TableroPanel;
 import UI.eventos.juego.IGameEventsListener;
+import java.awt.Color;
+import java.awt.Component;
+import java.util.ArrayList;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 /**
@@ -14,24 +20,131 @@ public class Juego extends javax.swing.JFrame implements IGameEventsListener{
     
     IControladorJuego controladorJuego;
     
-    public Juego(IControladorJuego controladorJuego) {
+    ArrayList<JLabel> jugadoresInfo = new ArrayList<>();
+    
+    public Juego(IControladorJuego controladorJuego, Timbiriche.estructuras.Juego juego) {
         initComponents();
         
         panelTablero.setVisible(false);
-        TableroPanel tablero = new TableroPanel();
+        TableroPanel tablero = new TableroPanel(controladorJuego, juego.getTablero());
         tablero.setBounds(0, 0, 530, 577);
         
         this.add(tablero);
         
         setLocationRelativeTo(null); 
         
+        lblJugadorTemplate.setVisible(false);
+        
         this.controladorJuego = controladorJuego;
+        controladorJuego.listenJuegoEvents(this);
+        controladorJuego.listenJuegoEvents(tablero);
+        
+        setJugadores(juego.getJugadores(), juego.getJugadorTurno(), new Casilla[0]);
     }
 
     public Juego() {
         
     }
     
+    private void setJugadores(Jugador[] jugadores, Jugador turno, Casilla[] casillas){
+        
+        for (Component component : this.getComponents()) {
+            
+        }
+        
+        for (int i = 0; i < jugadores.length; i++) {
+            Jugador jugador = jugadores[i];
+            
+            // Puntos
+            int puntos = 0;
+            for (Casilla casilla : casillas) {
+                if(casilla.getJugador().getID().equals(jugador.getID())) puntos++;
+            }
+            
+            JLabel label = new JLabel();
+            label.setText(jugador.getUserName()+"   Puntos: "+puntos);
+            label.setIcon(lblJugadorTemplate.getIcon());
+            
+            int newX = lblJugadorTemplate.getX();
+            int newY = lblJugadorTemplate.getY()+50*(i);
+            int newWidth = lblJugadorTemplate.getWidth();
+            int newHeight = lblJugadorTemplate.getHeight();
+
+            label.setBounds(newX, newY, newWidth, newHeight);
+            
+            
+            if(jugador.getID().equals(turno.getID())){
+                label.setBackground(Color.LIGHT_GRAY);
+            }
+            
+            switch(jugador.getColor()){
+                case "red": label.setForeground(Color.red);
+                    break;
+                    
+                case "green": label.setForeground(Color.green);
+                    break;
+                 
+                case "black": label.setForeground(Color.black);
+                    break;
+                    
+                case "orange": label.setForeground(Color.orange);
+                    break;
+                    
+                case "blue": label.setForeground(Color.blue);
+                    break;
+            }
+            
+            label.setToolTipText(jugador.getID());
+            label.setVisible(true);
+            this.add(label);
+            this.jugadoresInfo.add(label);
+        }
+        
+
+    }
+    
+    private void actualizarJugadores(Jugador[] jugadores, Jugador turno, Casilla[] casillas){
+        
+        for (int i = 0; i < jugadores.length; i++) {
+            Jugador jugador = jugadores[i];
+            
+            JLabel label = null;
+            
+            for (JLabel labelPlayer : this.jugadoresInfo) {
+                if (jugador.getID().equals(labelPlayer.getToolTipText())) {
+                    label = labelPlayer;
+                }
+
+            }
+
+            for (Component component : this.getComponents()) {
+                if(component instanceof JLabel){
+                    JLabel labelPlayer = (JLabel)component;
+                    if(jugador.getID().equals(labelPlayer.getToolTipText())){
+                        label = labelPlayer;
+                    }
+                }
+            }
+            
+            if(label == null) continue;
+            
+            // Puntos
+            int puntos = 0;
+            for (Casilla casilla : casillas) {
+                if(casilla.getJugador().getID().equals(jugador.getID())) puntos++;
+            }
+            
+            label.setText(jugador.getUserName()+"   Puntos: "+puntos);         
+            
+            if(jugador.getID().equals(turno.getID())){
+                label.setBackground(Color.DARK_GRAY);
+            }
+            
+           
+        }
+        
+
+    }
     
     
     private void dibujarTablero(){
@@ -46,16 +159,9 @@ public class Juego extends javax.swing.JFrame implements IGameEventsListener{
         jTextArea1 = new javax.swing.JTextArea();
         jPanel1 = new javax.swing.JPanel();
         panelTablero = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        lblJugadorTemplate = new javax.swing.JLabel();
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -87,8 +193,6 @@ public class Juego extends javax.swing.JFrame implements IGameEventsListener{
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jLabel8.setText("0 puntos");
-
         jButton1.setText("Abandonar partida");
         jButton1.setOpaque(false);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -100,27 +204,9 @@ public class Juego extends javax.swing.JFrame implements IGameEventsListener{
         jLabel9.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
         jLabel9.setText("Turno de: Jugador 1");
 
-        jLabel7.setText("0 puntos");
-
-        jLabel6.setText("0 puntos");
-
-        jLabel5.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/media/Avatar_default.png.png"))); // NOI18N
-        jLabel5.setText("Jugador 4");
-
-        jLabel1.setText("0 puntos");
-
-        jLabel3.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/media/Avatar_default.png.png"))); // NOI18N
-        jLabel3.setText("Jugador 2");
-
-        jLabel2.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/media/Avatar_default.png.png"))); // NOI18N
-        jLabel2.setText("Jugador 1");
-
-        jLabel4.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/media/Avatar_default.png.png"))); // NOI18N
-        jLabel4.setText("Jugador 3");
+        lblJugadorTemplate.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
+        lblJugadorTemplate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/media/Avatar_default.png.png"))); // NOI18N
+        lblJugadorTemplate.setText("Jugador 1");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -128,32 +214,16 @@ public class Juego extends javax.swing.JFrame implements IGameEventsListener{
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(panelTablero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel8))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel1))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel6))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel7)))
-                        .addGap(67, 67, 67))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel9)
                         .addGap(56, 56, 56))
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(lblJugadorTemplate, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
         );
         layout.setVerticalGroup(
@@ -161,23 +231,9 @@ public class Juego extends javax.swing.JFrame implements IGameEventsListener{
             .addGroup(layout.createSequentialGroup()
                 .addGap(1, 71, Short.MAX_VALUE)
                 .addComponent(jLabel9)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel3))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel7))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel5))
-                .addGap(45, 45, 45)
+                .addGap(29, 29, 29)
+                .addComponent(lblJugadorTemplate)
+                .addGap(232, 232, 232)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 98, Short.MAX_VALUE))
             .addComponent(panelTablero, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -226,18 +282,11 @@ public class Juego extends javax.swing.JFrame implements IGameEventsListener{
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JLabel lblJugadorTemplate;
     private javax.swing.JPanel panelTablero;
     // End of variables declaration//GEN-END:variables
 
@@ -247,7 +296,7 @@ public class Juego extends javax.swing.JFrame implements IGameEventsListener{
     }
 
     @Override
-    public void on_LineaTrazada(Jugador jugador, Timbiriche.estructuras.Juego juegoActualizado) {
-        // Aqui actualizar el tablero
+    public void on_LineaTrazada(Jugador jugador, Jugador turno, Tablero tableroActualizado) {
+        actualizarJugadores(controladorJuego.getJuego().getJugadores(), turno, tableroActualizado.getCasillas());
     }
 }

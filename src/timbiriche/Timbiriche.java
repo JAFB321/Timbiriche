@@ -26,6 +26,10 @@ public class Timbiriche extends Juego{
             throw new Exception("No es tu turno");
         }
         
+        if(!linea.esValida()){
+            throw new Exception("Linea invalida");
+        }
+        
         if(!tablero.estaDisponible(linea)){
             throw new Exception("Ya hay una linea en ese lugar");
         }

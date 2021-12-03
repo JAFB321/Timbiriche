@@ -1,14 +1,17 @@
 package Controlador.Juego.server;
 
 import Controlador.Conexiones.cliente.AccionCliente;
+import Controlador.Conexiones.server.AccionServer;
 import Controlador.Conexiones.server.Cliente;
 import Controlador.Conexiones.server.Server;
 import Controlador.Juego.IControladorJuego;
 import Controlador.Juego.eventosUI.JuegoEvents;
+import Controlador.Juego.server.AccionesServer.*;
 import Timbiriche.Timbiriche;
 import Timbiriche.estructuras.Juego;
 import Timbiriche.estructuras.Jugador;
 import Timbiriche.estructuras.JugadorHost;
+import Timbiriche.estructuras.Linea;
 import Timbiriche.estructuras.Punto;
 import Timbiriche.estructuras.Tablero;
 import UI.eventos.juego.IGameEventsListener;
@@ -47,7 +50,8 @@ public class ControladorJuegoHost implements Observer, IControladorJuego{
     // ------------ Notificador Eventos UI ------------
     JuegoEvents eventosJuego = new JuegoEvents();
     
-    public void listenSalaEvents(IGameEventsListener listener){
+    @Override
+    public void listenJuegoEvents(IGameEventsListener listener){
         eventosJuego.listeners.add(listener);
     }
     
@@ -79,6 +83,12 @@ public class ControladorJuegoHost implements Observer, IControladorJuego{
             
             this.requestHandler = new HostPeticionesHandler(server, juego, eventosJuego);
             
+            String[] colores = {"red", "blue", "orange", "black", "green"};
+
+            for (int i = 0; i < juego.getJugadores().length; i++) {
+                juego.getJugadores()[i].setColor(colores[i]);
+            }
+            
             return true;
         } catch (Exception e) {
             return false;
@@ -87,6 +97,22 @@ public class ControladorJuegoHost implements Observer, IControladorJuego{
 
     @Override
     public boolean trazarLinea(Punto a, Punto b) {
+        
+        try {
+
+            Linea linea = new Linea(a, b, getJugador());
+            
+            juego.trazarLinea(getJugador(), linea);
+            
+            AccionServer notificarJugadores = new notificar_LineaTrazada(getJugador(), juego.getJugadorTurno() , new Tablero().actualizarTablero(juego.getTablero()));
+            server.sendToClients(notificarJugadores);
+            
+            eventosJuego.notificar_LineaTrazada(getJugador(), juego.getJugadorTurno() , new Tablero().actualizarTablero(juego.getTablero()));
+            
+        } catch (Exception e) {
+            eventosJuego.notificar_Error(e.getMessage());
+        }
+        
         
         return false;
     }

@@ -128,4 +128,13 @@ public class Tablero implements Serializable{
         
         return nCasillas;
     }
+    
+    public Tablero actualizarTablero(Tablero nuevo){
+        this.alto = nuevo.alto;
+        this.ancho = nuevo.ancho;
+        this.lineas = (ArrayList<Linea>)(nuevo.lineas.clone());
+        this.casillas = (ArrayList<Casilla>)(nuevo.casillas.clone());
+        
+        return this;
+    }
 }

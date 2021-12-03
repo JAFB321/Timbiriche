@@ -28,10 +28,10 @@ public class SalaEspera extends javax.swing.JFrame implements ISalaListener{
         
         listaSalas.setModel(modeloLista);
         
-        grupoBotonesColor.add(radioAzul);
-        grupoBotonesColor.add(radioNegro);
-        grupoBotonesColor.add(radioRojo);
-        grupoBotonesColor.add(radioVerde);
+//        grupoBotonesColor.add(radioAzul);
+//        grupoBotonesColor.add(radioNegro);
+//        grupoBotonesColor.add(radioRojo);
+//        grupoBotonesColor.add(radioVerde);
         
         listarJugadores();
     }
@@ -56,11 +56,6 @@ public class SalaEspera extends javax.swing.JFrame implements ISalaListener{
         buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         btnAbandonar = new javax.swing.JButton();
-        radioAzul = new javax.swing.JRadioButton();
-        radioNegro = new javax.swing.JRadioButton();
-        radioVerde = new javax.swing.JRadioButton();
-        radioRojo = new javax.swing.JRadioButton();
-        jLabel5 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         txtHost = new javax.swing.JTextField();
         txtUsuario = new javax.swing.JTextField();
@@ -83,33 +78,6 @@ public class SalaEspera extends javax.swing.JFrame implements ISalaListener{
             }
         });
         jPanel1.add(btnAbandonar, new org.netbeans.lib.awtextra.AbsoluteConstraints(271, 373, 160, 59));
-
-        radioAzul.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        radioAzul.setForeground(new java.awt.Color(0, 51, 204));
-        radioAzul.setText("Azul");
-        radioAzul.setOpaque(false);
-        jPanel1.add(radioAzul, new org.netbeans.lib.awtextra.AbsoluteConstraints(178, 314, -1, -1));
-
-        radioNegro.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        radioNegro.setText("Negro");
-        radioNegro.setOpaque(false);
-        jPanel1.add(radioNegro, new org.netbeans.lib.awtextra.AbsoluteConstraints(45, 314, -1, -1));
-
-        radioVerde.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        radioVerde.setForeground(new java.awt.Color(0, 153, 0));
-        radioVerde.setText("Verde");
-        radioVerde.setOpaque(false);
-        jPanel1.add(radioVerde, new org.netbeans.lib.awtextra.AbsoluteConstraints(178, 250, -1, -1));
-
-        radioRojo.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        radioRojo.setForeground(new java.awt.Color(204, 0, 51));
-        radioRojo.setText("Rojo");
-        radioRojo.setOpaque(false);
-        jPanel1.add(radioRojo, new org.netbeans.lib.awtextra.AbsoluteConstraints(58, 250, -1, -1));
-
-        jLabel5.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel5.setText("Selecciona un color:");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(45, 208, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel4.setText("Nombre de Host:");
@@ -205,15 +173,10 @@ public class SalaEspera extends javax.swing.JFrame implements ISalaListener{
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JList<String> listaSalas;
-    private javax.swing.JRadioButton radioAzul;
-    private javax.swing.JRadioButton radioNegro;
-    private javax.swing.JRadioButton radioRojo;
-    private javax.swing.JRadioButton radioVerde;
     private javax.swing.JTextField txtHost;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
@@ -232,7 +195,7 @@ public class SalaEspera extends javax.swing.JFrame implements ISalaListener{
 
     @Override
     public void on_IniciarJuego(Juego juego) {
-        UI.Juego form = new UI.Juego(ControladorJuego.getInstance());
+        UI.Juego form = new UI.Juego(ControladorJuego.getInstance(), juego);
         this.dispose();
         form.setVisible(true);
     }

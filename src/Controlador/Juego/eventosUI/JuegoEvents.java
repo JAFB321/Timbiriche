@@ -2,6 +2,7 @@ package Controlador.Juego.eventosUI;
 
 import Timbiriche.estructuras.Juego;
 import Timbiriche.estructuras.Jugador;
+import Timbiriche.estructuras.Tablero;
 import UI.eventos.juego.IGameEventsListener;
 import java.util.ArrayList;
 
@@ -14,7 +15,7 @@ public class JuegoEvents {
         listeners.forEach(listener -> listener.on_Error(msg));
     }
     
-    public void notificar_LineaTrazada(Jugador jugador, Juego juegoActualizado){
-        listeners.forEach(listener -> listener.on_LineaTrazada(jugador, juegoActualizado));
+    public void notificar_LineaTrazada(Jugador jugador, Jugador turno, Tablero tableroActualizado){
+        listeners.forEach(listener -> listener.on_LineaTrazada(jugador, turno, tableroActualizado));
     }
 }
